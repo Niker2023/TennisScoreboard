@@ -1,4 +1,4 @@
-package com.project.tennisscoreboard;
+package com.project.servlet;
 
 import java.io.*;
 
