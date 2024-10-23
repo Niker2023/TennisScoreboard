@@ -20,7 +20,7 @@ public class HibernateRunner {
                     .player("Maradonna")
                     .build();
 
-            session.save(player);
+            session.persist(player);
 
             session.getTransaction().commit();
             System.out.println("OK");
