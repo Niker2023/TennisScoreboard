@@ -1,7 +1,6 @@
 package com.project.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +14,16 @@ import lombok.NoArgsConstructor;
 public class Matches {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "players_id")
+    private Players player1;
+
+    @ManyToOne
+    private Players player2;
+
+    @ManyToOne
+    private Players winner;
 }
