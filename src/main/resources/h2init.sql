@@ -5,6 +5,8 @@ CREATE TABLE if not exists players (
     id INT2 PRIMARY KEY AUTO_INCREMENT,
     player VARCHAR(100) NOT NULL);
 
+CREATE UNIQUE INDEX ON players (player);
+
 CREATE TABLE if not exists matches (
     id INT2 PRIMARY KEY AUTO_INCREMENT,
     player1 int2,
