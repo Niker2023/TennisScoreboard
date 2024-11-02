@@ -15,17 +15,14 @@ public class Matches {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "player1", referencedColumnName = "id")
+    @ManyToOne
     private Players player1;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "player2", referencedColumnName = "id")
+    @ManyToOne
     private Players player2;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "winner", referencedColumnName = "id")
+    @ManyToOne
     private Players winner;
 }
