@@ -1,0 +1,22 @@
+.center {
+    text-align: center;
+}
+
+body {
+    background-color:antiquewhite;
+    /*background-image: url(bing:3840:2160.jpg);*/
+    background-size: contain;
+  }
+
+button {
+    border-radius: 10px;
+    color: white;
+    transition: .2s linear;
+    background: #0B63F6;
+}
+
+button:hover {
+    -webkit-transform: rotateZ(5deg);
+    -ms-transform: rotateZ(5deg);
+    transform: rotateZ(5deg);
+}
