@@ -2,17 +2,17 @@ CREATE SCHEMA if not exists tennisScoreboard;
 SET SCHEMA tennisScoreboard;
 
 CREATE TABLE if not exists players (
-    id INT2 PRIMARY KEY AUTO_INCREMENT,
+    id bigint PRIMARY KEY AUTO_INCREMENT,
     player VARCHAR(100) NOT NULL);
 
 CREATE UNIQUE INDEX ON players (player);
 
 CREATE TABLE if not exists matches (
     id INT2 PRIMARY KEY AUTO_INCREMENT,
-    player1 int2,
-    player2 int2,
-    winner int2,
-    foreign key (player1) references players(id),
-    foreign key (player2) references players(id),
-    foreign key (winner) references players(id)
+    player1_id bigint,
+    player2_id bigint,
+    winner_id bigint,
+    foreign key (player1_id) references players(id),
+    foreign key (player2_id) references players(id),
+    foreign key (winner_id) references players(id)
 );
