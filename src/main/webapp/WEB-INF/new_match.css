@@ -20,6 +20,7 @@ button {
 label{
     display: block;
     margin: 1rem;
+    margin: 30px;
 }
 
 .conteiner {
@@ -30,4 +31,6 @@ label{
     margin-right: auto;
     padding: 2px;  
     border-radius: 10px;  
+    min-width: 200px;
+    max-width: 600px;
 }
