@@ -3,7 +3,7 @@ package com.project;
 
 import com.project.entity.Matches;
 import com.project.entity.Players;
-import com.project.entity.util.HibernateUtil;
+import com.project.util.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
 
