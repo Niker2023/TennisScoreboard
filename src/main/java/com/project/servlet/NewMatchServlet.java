@@ -20,7 +20,14 @@ public class NewMatchServlet extends HttpServlet {
                 .forward(request, response);
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setAttribute("new_match_url", "new-match");
+        request.setAttribute("matches_url", "matches");
+
+        request.setAttribute("error_message", true);
+
+        request.getRequestDispatcher("/WEB-INF/new-match.jsp")
+                .forward(request, response);
     }
 }
