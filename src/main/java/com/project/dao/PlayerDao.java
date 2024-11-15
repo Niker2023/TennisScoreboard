@@ -11,7 +11,6 @@ import java.util.Optional;
 public class PlayerDao {
 
     private static final PlayerDao INSTANCE = new PlayerDao();
-//    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     private PlayerDao() {}
 
@@ -19,11 +18,10 @@ public class PlayerDao {
         return INSTANCE;
     }
 
-    public List<Players> findAll() {
-        try (SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-             Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            return session.createQuery("from Players", Players.class).list();
-        }
+    public void save(Players player) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.persist(player);
+        session.getTransaction().commit();
     }
 }
