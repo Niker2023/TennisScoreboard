@@ -4,12 +4,12 @@
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Создание нового матча</title>
-  <link rel ="stylesheet" type="text/css" href="css/new-match.css">
+  <link rel="stylesheet" type="text/css" href="css/new-match.css">
  </head>
  <body>
   <h1>Создание нового матча</h1>
-  <c:if test="${requestScope.error_message}">
-      <p class="error">Имя игрока неуникально!</p>
+  <c:if test="${requestScope.error}">
+      <p class="error">${requestScope.error_message}</p>
   </c:if>
   <form class="container" method="post" action="/new-match">
     <label for="player1">Введите имя первого игрока: 
