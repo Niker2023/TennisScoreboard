@@ -18,6 +18,6 @@
       <input id="player2" name="player2" type="text" required size="20"></label>
      <button>Создать игру</button>
   </form>
-  <img alt="referee" src="/images/referee.png">
+  <img alt="referee" src="/images/rackets.png">
  </body>
 </html>
