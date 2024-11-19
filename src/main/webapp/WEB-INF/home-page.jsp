@@ -13,7 +13,7 @@
     </form>
   </label>
   <label>Сыграть новый матч:
-    <form action=${requestScope.new_match_url} target="_blank">
+    <form target="_blank" action=${requestScope.new_match_url}>
       <button>Играем!</button>
     </form>
   </label>
