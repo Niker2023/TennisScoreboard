@@ -1,5 +1,9 @@
 package com.project.servlet;
 
+import com.project.dto.PlayerDto;
+import com.project.entity.MatchScore;
+import com.project.entity.Players;
+import com.project.service.OngoingMatchesService;
 import com.project.service.PlayersPersistenceService;
 import jakarta.persistence.PersistenceException;
 import jakarta.servlet.ServletException;
@@ -14,9 +18,6 @@ import java.io.IOException;
 public class NewMatchServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        request.setAttribute("new_match_url", "new-match");
-        request.setAttribute("matches_url", "matches");
 
         request.getRequestDispatcher("/WEB-INF/new-match.jsp")
                 .forward(request, response);
@@ -59,12 +60,10 @@ public class NewMatchServlet extends HttpServlet {
             return;
         }
 
+        MatchScore matchScore = new MatchScore(new Players(), new PlayerDto(player2));
+        OngoingMatchesService.addMatch(matchScore.getUuid(), matchScore);
+//        request.setAttribute("matchScore", "%s".formatted(matchScore.getUuid()));
 
-
-        request.setAttribute("new_match_url", "new-match");
-        request.setAttribute("matches_url", "matches");
-
-        request.getRequestDispatcher("/WEB-INF/new-match.jsp")
-                .forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + matchScore.getUuid());
     }
 }
