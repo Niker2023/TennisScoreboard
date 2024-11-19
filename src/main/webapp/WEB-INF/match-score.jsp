@@ -32,8 +32,8 @@
       </div>
       <div class="inline">
         <label>Участники</label>
-        <label class="panel">Иванов</label>
-        <label class="panel">Петров</label>
+        <label class="panel">${requestScope.player1}</label>
+        <label class="panel">${requestScope.player2}</label>
       </div>
     </div>
     <div>
