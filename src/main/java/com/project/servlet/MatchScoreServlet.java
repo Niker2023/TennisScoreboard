@@ -1,9 +1,8 @@
 package com.project.servlet;
 
-import com.project.dto.PlayerDto;
-import com.project.entity.MatchScore;
-import com.project.entity.Players;
+import com.project.service.MatchScoreCalculationService;
 import com.project.service.OngoingMatchesService;
+import com.project.util.MatchScoreViewUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,23 +10,36 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.UUID;
 
 @WebServlet("/match-score")
 public class MatchScoreServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        var player1 = request.getParameter("player1");
-        var player2 = request.getParameter("player2");
+        UUID currentUuid = UUID.fromString(request.getParameter("uuid"));
 
-        request.setAttribute("player1", "%s".formatted(player1));
-        request.setAttribute("player2", "%s".formatted(player2));
+        var currentMatch = OngoingMatchesService.getMatch(currentUuid);
+
+        HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentUuid, currentMatch);
 
         request.getRequestDispatcher("/WEB-INF/match-score.jsp")
-                .forward(request, response);
+                .forward(filledRequest, response);
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        UUID currentUuid = UUID.fromString(request.getParameter("uuid"));
+        String winner = request.getParameter("winner");
+
+        var currentMatch = OngoingMatchesService.getMatch(currentUuid);
+
+        MatchScoreCalculationService.calculate(currentMatch, winner);
+
+        HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentUuid, currentMatch);
+
+        request.getRequestDispatcher("/WEB-INF/match-score.jsp")
+                .forward(filledRequest, response);
     }
 }
