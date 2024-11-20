@@ -8,8 +8,10 @@ public class OngoingMatchesService {
 
     private static final Map<UUID, MatchScore> matches = new HashMap<>();
 
-    public static void addMatch(UUID uuid, MatchScore matchScore) {
+    public static UUID addMatch(MatchScore matchScore) {
+        UUID uuid = UUID.randomUUID();
         matches.put(uuid, matchScore);
+        return uuid;
     }
 
     public static MatchScore getMatch(UUID uuid) {
