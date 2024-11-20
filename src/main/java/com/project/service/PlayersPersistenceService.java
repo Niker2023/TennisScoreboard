@@ -15,10 +15,9 @@ public class PlayersPersistenceService {
         return INSTANCE;
     }
 
-    public void save(String player) {
-        Players newPlayer = Players.builder()
-                        .player(player)
-                        .build();
+    public Integer save(String player) {
+        Players newPlayer = new Players(player);
         playerDao.save(newPlayer);
+        return newPlayer.getId();
     }
 }
