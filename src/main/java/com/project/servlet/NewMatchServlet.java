@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet("/new-match")
 public class NewMatchServlet extends HttpServlet {
@@ -38,8 +39,10 @@ public class NewMatchServlet extends HttpServlet {
         }
 
         var playersPersistenceService = PlayersPersistenceService.getInstance();
+        Integer playerId1;
+        Integer playerId2;
         try {
-            playersPersistenceService.save(player1);
+            playerId1 = playersPersistenceService.save(player1);
         } catch (PersistenceException e) {
             request.setAttribute("error", true);
             request.setAttribute("error_message", "Имя первого игрока уже существует в базе данных! Введите другое.");
@@ -50,7 +53,7 @@ public class NewMatchServlet extends HttpServlet {
         }
 
         try {
-            playersPersistenceService.save(player2);
+            playerId2 = playersPersistenceService.save(player2);
         } catch (PersistenceException e) {
             request.setAttribute("error", true);
             request.setAttribute("error_message", "Имя второго игрока уже существует в базе данных! Введите другое.");
@@ -60,10 +63,10 @@ public class NewMatchServlet extends HttpServlet {
             return;
         }
 
-        MatchScore matchScore = new MatchScore(new Players(), new PlayerDto(player2));
-        OngoingMatchesService.addMatch(matchScore.getUuid(), matchScore);
+        MatchScore matchScore = new MatchScore(playerId1, playerId2);
+        UUID newMatchUuid = OngoingMatchesService.addMatch(matchScore);
 //        request.setAttribute("matchScore", "%s".formatted(matchScore.getUuid()));
 
-        response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + matchScore.getUuid());
+        response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + newMatchUuid);
     }
 }
