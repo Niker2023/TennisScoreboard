@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.UUID;
 
 @WebServlet("/match-score")
@@ -22,7 +21,9 @@ public class MatchScoreServlet extends HttpServlet {
 
         var currentMatch = OngoingMatchesService.getMatch(currentUuid);
 
-        HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentUuid, currentMatch);
+        HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
+
+        filledRequest.setAttribute("uuid", currentUuid);
 
         request.getRequestDispatcher("/WEB-INF/match-score.jsp")
                 .forward(filledRequest, response);
@@ -37,7 +38,9 @@ public class MatchScoreServlet extends HttpServlet {
 
         MatchScoreCalculationService.calculate(currentMatch, winner);
 
-        HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentUuid, currentMatch);
+        HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
+
+        filledRequest.setAttribute("uuid", currentUuid);
 
         request.getRequestDispatcher("/WEB-INF/match-score.jsp")
                 .forward(filledRequest, response);
