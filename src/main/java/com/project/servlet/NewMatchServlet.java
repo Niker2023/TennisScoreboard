@@ -1,8 +1,6 @@
 package com.project.servlet;
 
-import com.project.dto.PlayerDto;
 import com.project.entity.MatchScore;
-import com.project.entity.Players;
 import com.project.service.OngoingMatchesService;
 import com.project.service.PlayersPersistenceService;
 import jakarta.persistence.PersistenceException;
@@ -63,9 +61,8 @@ public class NewMatchServlet extends HttpServlet {
             return;
         }
 
-        MatchScore matchScore = new MatchScore(playerId1, playerId2);
-        UUID newMatchUuid = OngoingMatchesService.addMatch(matchScore);
-//        request.setAttribute("matchScore", "%s".formatted(matchScore.getUuid()));
+        MatchScore newMatch = new MatchScore(playerId1, playerId2);
+        UUID newMatchUuid = OngoingMatchesService.addMatch(newMatch);
 
         response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + newMatchUuid);
     }
