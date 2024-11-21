@@ -37,7 +37,7 @@
       </div>
     </div>
     <div>
-        <form method="post" action="/match-score?uuid=${requestScope.UUID}">
+        <form method="post" action="/match-score?uuid=${requestScope.uuid}">
             <button type="submit" name="winner" value="player1">Первый игрок выиграл очко</button>
             <button type="submit" name="winner" value="player2">Второй игрок выиграл очко</button>
         </form>
