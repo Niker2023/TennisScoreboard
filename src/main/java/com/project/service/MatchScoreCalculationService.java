@@ -1,56 +1,35 @@
 package com.project.service;
 
 import com.project.entity.MatchScore;
+import com.project.util.Player;
 
-import java.util.HashMap;
-import java.util.Map;
+import static java.lang.Math.abs;
 
 public class MatchScoreCalculationService {
 
-    public static MatchScore calculate(MatchScore matchScore, String winner) {
+    private static String winner;
+    private static String loser;
 
-        Integer player1Id = matchScore.getPlayer1Id();
-        Integer player2Id = matchScore.getPlayer2Id();
-        Integer winnerId;
-        Integer looserId;
+    public static void calculate(MatchScore matchScore, String winningPlayer) {
 
-        if (winner.equals("player1")) {
-            winnerId = player1Id;
-            looserId = player2Id;
+        winner = winningPlayer;
+        if (winningPlayer.equals(Player.ONE.toString())) {
+            loser = Player.TWO.toString();
         } else {
-            winnerId = player2Id;
-            looserId = player1Id;
+            loser = Player.ONE.toString();
         }
 
-        if (matchScore.getPoints().get(winnerId) < 3) {
-            matchScore.setPoints(changePoints(matchScore.getPoints(), winnerId));
-        } else if (matchScore.getPoints().get(winnerId) - matchScore.getPoints().get(looserId) == 2) {
-            matchScore.setSet1(changeSetScore(matchScore.getSet1(), winnerId));
-            matchScore.setPoints(resetPoints(matchScore.getPoints()));
+        if (checkVictoryInGame(matchScore)) {
+            matchScore.setSet1Score(winner, matchScore.getSet1Score(winner) + 1);
+            matchScore.setPoints(winner, 0);
+            matchScore.setPoints(loser, 0);
+        } else {
+            matchScore.setPoints(winner, matchScore.getPoints(winner) + 1);
         }
-
-        return matchScore;
     }
 
 
-    private static Map<Integer, Integer> changePoints(Map<Integer, Integer> currentPoints, Integer winnerId) {
-        Integer currentScore = currentPoints.get(winnerId);
-        currentPoints.put(winnerId, currentScore + 1);
-        return currentPoints;
-    }
-
-
-    private static Map<Integer, Integer> resetPoints(Map<Integer, Integer> currentPoints) {
-        for (Map.Entry<Integer, Integer> entry : currentPoints.entrySet()) {
-            currentPoints.put(entry.getKey(), 0);
-        }
-        return currentPoints;
-    }
-
-
-    private static Map<Integer, Integer> changeSetScore(Map<Integer, Integer> currentSetScore, Integer winnerId) {
-        Integer currentScore = currentSetScore.get(winnerId);
-        currentSetScore.put(winnerId, currentScore + 1);
-        return currentSetScore;
+    private static boolean checkVictoryInGame(MatchScore matchScore) {
+        return matchScore.getPoints(winner) > 2 && abs(matchScore.getPoints(winner) + 1 - matchScore.getPoints(loser)) > 1;
     }
 }
