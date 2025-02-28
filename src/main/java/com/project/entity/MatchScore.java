@@ -7,9 +7,10 @@ import java.util.Map;
 
 public class MatchScore {
 
-    private Map<String, Integer> scores = new HashMap<>();
+    private final Map<String, Integer> scores;
 
     public MatchScore(Integer player1, Integer player2) {
+        scores = new HashMap<>();
         scores.put("player1Id", player1);
         scores.put("player2Id", player2);
         scores.put("player1Points", 0);
@@ -80,5 +81,23 @@ public class MatchScore {
         } else {
             scores.put("player2Set1Score", score);
         }
+    }
+
+
+    private Map<String, Integer> getMap() {
+        return scores;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        final MatchScore other = (MatchScore) obj;
+        return this.getMap().equals(other.getMap());
     }
 }
