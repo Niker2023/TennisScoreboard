@@ -10,7 +10,7 @@ public class MatchScoreCalculationService {
     private static String winner;
     private static String loser;
 
-    public static void calculate(MatchScore matchScore, String winningPlayer) {
+    public static void changeMatchScore(MatchScore matchScore, String winningPlayer) {
 
         winner = winningPlayer;
         if (winningPlayer.equals(Player.ONE.toString())) {
