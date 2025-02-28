@@ -36,7 +36,7 @@ public class MatchScoreServlet extends HttpServlet {
 
         var currentMatch = OngoingMatchesService.getMatch(currentUuid);
 
-        MatchScoreCalculationService.calculate(currentMatch, winner);
+        MatchScoreCalculationService.changeMatchScore(currentMatch, winner);
 
         HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
 
