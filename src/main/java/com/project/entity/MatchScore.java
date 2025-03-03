@@ -84,6 +84,24 @@ public class MatchScore {
     }
 
 
+    public void setSet2Score(String player, Integer score) {
+        if (player.equals(Player.ONE.toString())) {
+            scores.put("player1Set2Score", score);
+        } else {
+            scores.put("player2Set2Score", score);
+        }
+    }
+
+
+    public void setSet3Score(String player, Integer score) {
+        if (player.equals(Player.ONE.toString())) {
+            scores.put("player1Set3Score", score);
+        } else {
+            scores.put("player2Set3Score", score);
+        }
+    }
+
+
     private Map<String, Integer> getMap() {
         return scores;
     }
