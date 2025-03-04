@@ -3,6 +3,8 @@ package com.project.service;
 import com.project.entity.MatchScore;
 import com.project.util.Player;
 
+import static java.lang.Math.abs;
+
 public class MatchScoreCalculationService {
 
     private static String winner;
@@ -68,15 +70,15 @@ public class MatchScoreCalculationService {
 
     private static boolean checkVictoryInTiebreak(MatchScore matchScore) {
         if (matchScore.getSet1Score(winner) == 6 && matchScore.getSet1Score(loser) == 6) {
-            if (matchScore.getPoints(winner) > 6 && (matchScore.getPoints(winner) - matchScore.getPoints(loser)) > 1) {
+            if (matchScore.getPoints(winner) > 5 && (matchScore.getPoints(winner) + 1 - matchScore.getPoints(loser)) > 1) {
                 return true;
             }
         } else if (matchScore.getSet2Score(winner) == 6 && matchScore.getSet2Score(loser) == 6) {
-            if (matchScore.getPoints(winner) > 6 && (matchScore.getPoints(winner) - matchScore.getPoints(loser)) > 1) {
+            if (matchScore.getPoints(winner) > 5 && (matchScore.getPoints(winner) + 1 - matchScore.getPoints(loser)) > 1) {
                 return true;
             }
         } else if (matchScore.getSet3Score(winner) == 6 && matchScore.getSet3Score(loser) == 6) {
-            if (matchScore.getPoints(winner) > 6 && (matchScore.getPoints(winner) - matchScore.getPoints(loser)) > 1) {
+            if (matchScore.getPoints(winner) > 5 && (matchScore.getPoints(winner) + 1 - matchScore.getPoints(loser)) > 1) {
                 return true;
             }
         }
@@ -107,8 +109,9 @@ public class MatchScoreCalculationService {
 
 
     private static boolean checkSet1BeingPlayed(MatchScore matchScore) {
-        if ((matchScore.getSet1Score(winner) > 5 && (matchScore.getSet1Score(winner) - matchScore.getSet1Score(loser)) > 1)
-                || matchScore.getSet1Score(winner) == 7) {
+        if (((matchScore.getSet1Score(winner) > 5 || matchScore.getSet1Score(loser) > 5)
+                && abs((matchScore.getSet1Score(winner) - matchScore.getSet1Score(loser))) > 1)
+                || matchScore.getSet1Score(winner) == 7 || matchScore.getSet1Score(loser) == 7) {
             return false;
         }
         return true;
@@ -116,8 +119,9 @@ public class MatchScoreCalculationService {
 
 
     private static boolean checkSet2BeingPlayed(MatchScore matchScore) {
-        if ((matchScore.getSet2Score(winner) > 5 && (matchScore.getSet2Score(winner) - matchScore.getSet2Score(loser)) > 1)
-                || matchScore.getSet2Score(winner) == 7) {
+        if (((matchScore.getSet2Score(winner) > 5 || matchScore.getSet2Score(loser) > 5)
+                && abs((matchScore.getSet2Score(winner) - matchScore.getSet2Score(loser))) > 1)
+                || matchScore.getSet2Score(winner) == 7 || matchScore.getSet2Score(loser) == 7) {
             return false;
         }
         return true;
