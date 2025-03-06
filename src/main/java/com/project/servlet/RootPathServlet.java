@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @WebServlet("/")
 public class RootPathServlet extends HttpServlet {
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.sendRedirect("/new-match");
     }
 }
