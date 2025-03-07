@@ -21,6 +21,7 @@ public class MatchScore {
         scores.put("player2Set2Score", 0);
         scores.put("player1Set3Score", 0);
         scores.put("player2Set3Score", 0);
+        scores.put("isMatchFinished", 0);
     }
 
 
@@ -66,6 +67,11 @@ public class MatchScore {
     }
 
 
+    public boolean IsMatchFinished() {
+        return scores.get("isMatchFinished") > 0;
+    }
+
+
     public void setPoints(String player, Integer points) {
         if (player.equals(Player.ONE.toString())) {
             scores.put("player1Points", points);
@@ -99,6 +105,11 @@ public class MatchScore {
         } else {
             scores.put("player2Set3Score", score);
         }
+    }
+
+
+    public void setMatchIsOver() {
+        scores.put("isMatchFinished", 1);
     }
 
 
