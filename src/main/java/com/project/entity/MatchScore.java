@@ -21,7 +21,7 @@ public class MatchScore {
         scores.put("player2Set2Score", 0);
         scores.put("player1Set3Score", 0);
         scores.put("player2Set3Score", 0);
-        scores.put("isMatchFinished", 0);
+        scores.put("isMatchOver", 0);
     }
 
 
@@ -67,8 +67,8 @@ public class MatchScore {
     }
 
 
-    public boolean IsMatchFinished() {
-        return scores.get("isMatchFinished") > 0;
+    public boolean IsMatchOver() {
+        return scores.get("isMatchOver") > 0;
     }
 
 
@@ -109,7 +109,7 @@ public class MatchScore {
 
 
     public void setMatchIsOver() {
-        scores.put("isMatchFinished", 1);
+        scores.put("isMatchOver", 1);
     }
 
 
