@@ -43,6 +43,13 @@
         </form>
     </div>
   </div>
-  <img src="/images/referee.png">
+  <c:choose>
+      <c:when test="${requestScope.isMatchOver == 0}">
+          <img src="/images/referee.png">
+      </c:when>
+      <c:otherwise>
+          <img src="/images/win%20match.png">
+      </c:otherwise>
+  </c:choose>
  </body>
 </html>
