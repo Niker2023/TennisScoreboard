@@ -38,6 +38,10 @@ public class MatchScoreViewUtil {
         req.setAttribute("pointsScorePlayer1", "%s".formatted(pointsView(match, Player.ONE.toString())));
         req.setAttribute("pointsScorePlayer2", "%s".formatted(pointsView(match, Player.TWO.toString())));
 
+        var isMatchOver = match.IsMatchOver() ? "1" : "0";
+
+        req.setAttribute("isMatchOver", isMatchOver);
+
         return req;
     }
 
