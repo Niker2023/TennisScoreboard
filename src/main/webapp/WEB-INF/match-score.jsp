@@ -4,7 +4,7 @@
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Текущий матч</title>
-  <link rel ="stylesheet" type="text/css" href="css/match-score.css">
+  <link rel ="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/match-score.css">
  </head>
  <body>
   <h1>Табло</h1>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div>
-        <form method="post" action="/match-score?uuid=${requestScope.uuid}">
+        <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${requestScope.uuid}">
             <button type="submit" name="winner" value="player1">Первый игрок выиграл очко</button>
             <button type="submit" name="winner" value="player2">Второй игрок выиграл очко</button>
         </form>
@@ -45,10 +45,10 @@
   </div>
   <c:choose>
       <c:when test="${requestScope.isMatchOver == 0}">
-          <img src="/images/referee.png">
+          <img src="${pageContext.request.contextPath}/images/referee.png">
       </c:when>
       <c:otherwise>
-          <img src="/images/win%20match.png">
+          <img src="${pageContext.request.contextPath}/images/win%20match.png">
       </c:otherwise>
   </c:choose>
  </body>
