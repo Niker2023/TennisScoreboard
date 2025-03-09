@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Бу! Не бойся. Давай сыграем!</title>
-    <link rel ="stylesheet" type="text/css" href="css/home-page.css">
+    <link rel ="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home-page.css">
 </head>
 <body>
 <h1>Симулятор табло теннисного матча</h1>
