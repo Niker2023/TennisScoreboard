@@ -57,7 +57,7 @@ public class MatchScoreViewUtil {
             return match.getPoints(player1).toString();
         } else if (match.getPoints(player1) > 2 && match.getPoints(player2) > 2) {
             if (match.getPoints(player2) - match.getPoints(player1) == 1) {
-                return " ";
+                return "<br>";
             } else if (match.getPoints(player1) - match.getPoints(player2) == 1) {
                 return "AD";
             }
