@@ -108,33 +108,7 @@ class MatchScoreCalculationServiceTest {
     }
 
     @Test
-    void whenPlayer1WinsPointAndGameAndSet2AndGameInSet3_thenSuccess() {
-        var testMatch = new MatchScore(1, 2);
-        testMatch.setPoints("player1",3);
-        testMatch.setPoints("player2",2);
-        testMatch.setSet1Score("player1", 7);
-        testMatch.setSet1Score("player2", 6);
-        testMatch.setSet2Score("player1", 5);
-        testMatch.setSet2Score("player2", 4);
-        for (int i = 0; i < 5; i++) {
-            MatchScoreCalculationService.changeMatchScore(testMatch, "player1");
-        }
-
-        var expectedMatchResult = new MatchScore(1, 2);
-        expectedMatchResult.setPoints("player2",0);
-        expectedMatchResult.setPoints("player1",0);
-        expectedMatchResult.setSet1Score("player2", 6);
-        expectedMatchResult.setSet1Score("player1", 7);
-        expectedMatchResult.setSet2Score("player1", 6);
-        expectedMatchResult.setSet2Score("player2", 4);
-        expectedMatchResult.setSet3Score("player1", 1);
-
-        assertEquals(testMatch, expectedMatchResult);
-    }
-
-    @Test
     void whenScoreInSet1_5_6_AndPlayer1WinsGame_thenTiebreak_thenSuccess() {
-        new MatchScore(1, 2);
         var testMatch = new MatchScore(1, 2);
         testMatch.setPoints("player1",0);
         testMatch.setPoints("player2",0);
@@ -156,7 +130,6 @@ class MatchScoreCalculationServiceTest {
 
     @Test
     void whenTiebreakAndPlayer1Wins7ScoreInSet2_thenStartSet3_thenSuccess() {
-        new MatchScore(1, 2);
         var testMatch = new MatchScore(1, 2);
         testMatch.setPoints("player1",0);
         testMatch.setPoints("player2",0);
@@ -182,7 +155,6 @@ class MatchScoreCalculationServiceTest {
 
     @Test
     void whenTiebreakAndPlayer2Wins2PointsWhen_7_7_thenPlayer2WinsTiebreak_thenSuccess() {
-        new MatchScore(1, 2);
         var testMatch = new MatchScore(1, 2);
         testMatch.setPoints("player1",7);
         testMatch.setPoints("player2",7);
@@ -201,6 +173,54 @@ class MatchScoreCalculationServiceTest {
         expectedMatchResult.setSet1Score("player2", 5);
         expectedMatchResult.setSet2Score("player1", 6);
         expectedMatchResult.setSet2Score("player2", 7);
+
+        assertEquals(testMatch, expectedMatchResult);
+    }
+
+    @Test
+    void whenPlayer1WinsGameAndMatch_thenSuccess() {
+        var testMatch = new MatchScore(1, 2);
+        testMatch.setPoints("player1",3);
+        testMatch.setPoints("player2",2);
+        testMatch.setSet1Score("player1", 7);
+        testMatch.setSet1Score("player2", 6);
+        testMatch.setSet2Score("player1", 5);
+        testMatch.setSet2Score("player2", 4);
+        MatchScoreCalculationService.changeMatchScore(testMatch, "player1");
+
+        var expectedMatchResult = new MatchScore(1, 2);
+        expectedMatchResult.setSet1Score("player1", 7);
+        expectedMatchResult.setSet1Score("player2", 6);
+        expectedMatchResult.setSet2Score("player1", 6);
+        expectedMatchResult.setSet2Score("player2", 4);
+        expectedMatchResult.setTheWinnerOfTheMatch(1);
+
+        assertEquals(testMatch, expectedMatchResult);
+    }
+
+    @Test
+    void whenPlayer2WinsTiebreakInSet3_thenSuccess() {
+        var testMatch = new MatchScore(1, 2);
+        testMatch.setPoints("player1",7);
+        testMatch.setPoints("player2",7);
+        testMatch.setSet1Score("player1", 7);
+        testMatch.setSet1Score("player2", 5);
+        testMatch.setSet2Score("player1", 6);
+        testMatch.setSet2Score("player2", 7);
+        testMatch.setSet3Score("player1", 6);
+        testMatch.setSet3Score("player2", 6);
+        for (int i = 0; i < 2; i++) {
+            MatchScoreCalculationService.changeMatchScore(testMatch, "player2");
+        }
+
+        var expectedMatchResult = new MatchScore(1, 2);
+        expectedMatchResult.setSet1Score("player1", 7);
+        expectedMatchResult.setSet1Score("player2", 5);
+        expectedMatchResult.setSet2Score("player1", 6);
+        expectedMatchResult.setSet2Score("player2", 7);
+        expectedMatchResult.setSet3Score("player1", 6);
+        expectedMatchResult.setSet3Score("player2", 7);
+        expectedMatchResult.setTheWinnerOfTheMatch(2);
 
         assertEquals(testMatch, expectedMatchResult);
     }
