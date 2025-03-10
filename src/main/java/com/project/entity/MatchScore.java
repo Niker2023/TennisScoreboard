@@ -21,7 +21,7 @@ public class MatchScore {
         scores.put("player2Set2Score", 0);
         scores.put("player1Set3Score", 0);
         scores.put("player2Set3Score", 0);
-        scores.put("isMatchOver", 0);
+        scores.put("winnerId", 0);
     }
 
 
@@ -67,8 +67,8 @@ public class MatchScore {
     }
 
 
-    public boolean IsMatchOver() {
-        return scores.get("isMatchOver") > 0;
+    public Integer getWinnerId() {
+        return scores.get("winnerId");
     }
 
 
@@ -108,8 +108,8 @@ public class MatchScore {
     }
 
 
-    public void setMatchIsOver() {
-        scores.put("isMatchOver", 1);
+    public void setTheWinnerOfTheMatch(Integer winnerId) {
+        scores.put("winnerId", winnerId);
     }
 
 
