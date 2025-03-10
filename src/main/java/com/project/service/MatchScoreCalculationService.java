@@ -98,9 +98,21 @@ public class MatchScoreCalculationService {
     }
 
     private static boolean isTheEndOfTheMatch(MatchScore matchScore) {
-        if ((matchScore.getSet3Score(winner) > 5 && (matchScore.getSet3Score(winner) - matchScore.getSet3Score(loser)) > 1)
-                || matchScore.getSet3Score(winner) == 7) {
-            return true;
+        if ((matchScore.getSet1Score(winner) > 5 && (matchScore.getSet1Score(winner) - matchScore.getSet1Score(loser)) > 1)
+                || matchScore.getSet1Score(winner) == 7) {
+            if ((matchScore.getSet2Score(winner) > 5 && (matchScore.getSet2Score(winner) - matchScore.getSet2Score(loser)) > 1)
+                    || matchScore.getSet2Score(winner) == 7) {
+                return true;
+            } else if ((matchScore.getSet3Score(winner) > 5 && (matchScore.getSet3Score(winner) - matchScore.getSet3Score(loser)) > 1)
+                    || matchScore.getSet3Score(winner) == 7) {
+                return true;
+            }
+        } else if ((matchScore.getSet2Score(winner) > 5 && (matchScore.getSet2Score(winner) - matchScore.getSet2Score(loser)) > 1)
+                || matchScore.getSet2Score(winner) == 7) {
+            if ((matchScore.getSet3Score(winner) > 5 && (matchScore.getSet3Score(winner) - matchScore.getSet3Score(loser)) > 1)
+                    || matchScore.getSet3Score(winner) == 7) {
+                return true;
+            }
         }
         return false;
     }
