@@ -56,7 +56,11 @@ public class MatchScoreCalculationService {
         }
 
         if (isTheEndOfTheMatch(matchScore)) {
-            matchScore.setMatchIsOver();
+            if (winner.equals(Player.ONE.toString())) {
+                matchScore.setTheWinnerOfTheMatch(matchScore.getPlayer1Id());
+            } else {
+                matchScore.setTheWinnerOfTheMatch(matchScore.getPlayer2Id());
+            }
         }
     }
 
