@@ -36,18 +36,26 @@
         <label class="panel">${requestScope.player2}</label>
       </div>
     </div>
-    <div>
-        <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${requestScope.uuid}">
-            <button type="submit" name="winner" value="player1">Первый игрок выиграл очко</button>
-            <button type="submit" name="winner" value="player2">Второй игрок выиграл очко</button>
-        </form>
-    </div>
-  </div>
   <c:choose>
-      <c:when test="${requestScope.isMatchOver == 0}">
+      <c:when test="${requestScope.winnerName eq '0'}">
+          <div>
+              <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${requestScope.uuid}">
+                  <button type="submit" name="winner" value="player1">Первый игрок выиграл очко</button>
+                  <button type="submit" name="winner" value="player2">Второй игрок выиграл очко</button>
+              </form>
+          </div>
+      </div>
           <img src="${pageContext.request.contextPath}/images/referee.png">
       </c:when>
       <c:otherwise>
+          <div>
+              <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${requestScope.uuid}">
+                  <button type="submit" name="winner" value="player1">Сыграть новый матч</button>
+                  <button type="submit" name="winner" value="player2">Перейти к списку сыгранных матчей</button>
+              </form>
+          </div>
+      </div>
+          <h1>Поздравляем ${requestScope.winnerName} с победой! </h1>
           <img src="${pageContext.request.contextPath}/images/win%20match.png">
       </c:otherwise>
   </c:choose>
