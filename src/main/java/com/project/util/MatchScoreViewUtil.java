@@ -38,11 +38,17 @@ public class MatchScoreViewUtil {
         req.setAttribute("pointsScorePlayer1", "%s".formatted(pointsView(match, Player.ONE.toString())));
         req.setAttribute("pointsScorePlayer2", "%s".formatted(pointsView(match, Player.TWO.toString())));
 
-        var isMatchOver = match.IsMatchOver() ? "1" : "0";
-
-        req.setAttribute("isMatchOver", isMatchOver);
+        req.setAttribute("winnerName", winnerName(match.getWinnerId()));
 
         return req;
+    }
+
+    private static String winnerName(Integer winnerId) {
+        if (winnerId == 0) {
+            return "0";
+        } else {
+            return PlayerDao.getInstance().getNameById(winnerId);
+        }
     }
 
 
