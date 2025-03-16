@@ -49,10 +49,11 @@
       </c:when>
       <c:otherwise>
           <div>
-              <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${requestScope.uuid}">
-                  <button type="submit" name="winner" value="player1">Сыграть новый матч</button>
-                  <button type="submit" name="winner" value="player2">Перейти к списку сыгранных матчей</button>
-              </form>
+              <label>Вернуться на начальную странцу?
+                  <form action=home-page>
+                      <button>Вперед!</button>
+                  </form>
+              </label>
           </div>
       </div>
           <h1>Поздравляем ${requestScope.winnerName} с победой! </h1>
