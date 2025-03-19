@@ -16,8 +16,3 @@ CREATE TABLE if not exists matches (
     foreign key (player2_id) references players(id),
     foreign key (winner_id) references players(id)
 );
-
-INSERT INTO players(id, player) VALUES (1, 'D. Medvedev');
-INSERT INTO players(id, player) VALUES (2, 'B. Djokovic');
-
-INSERT INTO matches(id, player1_id, player2_id, winner_id) VALUES (1, 1,2,1);
