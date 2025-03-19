@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -21,6 +22,9 @@
     </div>
     <div class="tableau">
         <ol>
+            <c:forEach var="matchResult" items="${requestScope.matches}">
+                <li>${matchResult}</li>
+            </c:forEach>
             <li>Трамп - <span class="winner">Путин</span></li>
             <li>Жуковский - Пауковский</li>
         </ol> 
