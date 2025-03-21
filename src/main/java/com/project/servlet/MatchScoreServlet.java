@@ -1,5 +1,6 @@
 package com.project.servlet;
 
+import com.project.service.FinishedMatchesPersistenceService;
 import com.project.service.MatchScoreCalculationService;
 import com.project.service.OngoingMatchesService;
 import com.project.util.MatchScoreViewUtil;
@@ -44,5 +45,12 @@ public class MatchScoreServlet extends HttpServlet {
 
         request.getRequestDispatcher("/WEB-INF/match-score.jsp")
                 .forward(filledRequest, response);
+
+        if (!currentMatch.getWinnerId().equals(0)) {
+
+            var finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
+            finishedMatchesPersistenceService.save(currentMatch);
+            OngoingMatchesService.removeMatch(currentUuid);
+        }
     }
 }
