@@ -1,6 +1,7 @@
 package com.project.dao;
 
 import com.project.entity.Matches;
+import com.project.entity.Players;
 import com.project.util.HibernateUtil;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
@@ -38,5 +39,15 @@ public class MatchDao {
         List<Matches> matches = query.getResultList();
         session.getTransaction().commit();
         return matches;
+    }
+
+
+    public List<Matches> getMatchesByPlayer(Players player) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query<Matches> query = session.createQuery("from Matches where player1 = :player or player2 = :player", Matches.class);
+        List<Matches> matchesList = query.setParameter("player", player).getResultList();
+        session.getTransaction().commit();
+        return matchesList;
     }
 }
