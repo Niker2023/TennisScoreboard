@@ -7,15 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PlayersPersistenceService {
 
-    private final PlayerDao playerDao = PlayerDao.getInstance();
-
-    private static final PlayersPersistenceService INSTANCE = new PlayersPersistenceService();
-
-    public static PlayersPersistenceService getInstance() {
-        return INSTANCE;
-    }
-
     public Integer save(String player) {
+        PlayerDao playerDao = new PlayerDao();
         Players newPlayer = new Players(player);
         playerDao.save(newPlayer);
         return newPlayer.getId();
