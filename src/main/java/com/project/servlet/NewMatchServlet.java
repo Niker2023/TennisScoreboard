@@ -36,7 +36,7 @@ public class NewMatchServlet extends HttpServlet {
             return;
         }
 
-        var playersPersistenceService = PlayersPersistenceService.getInstance();
+        var playersPersistenceService = new PlayersPersistenceService();
         Integer playerId1;
         Integer playerId2;
         try {
