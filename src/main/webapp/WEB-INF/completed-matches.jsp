@@ -11,23 +11,39 @@
 <div class="container">
     <div>
         <form action="${pageContext.request.contextPath}/matches" method="get">
-            Поиск: <input 
+            Поиск: <label for="playerName"><input
+                id="playerName"
                 type="text"
-                name="q"
+                name="playerName"
                 placeholder="Введите имя игрока"
-                required
             >
+            </label>
             <button type="submit">Найти</button>
         </form>
     </div>
     <div class="tableau">
-        <ol>
-            <c:forEach var="matchResult" items="${requestScope.matches}">
-                <li>${matchResult}</li>
-            </c:forEach>
-            <li>Трамп - <span class="winner">Путин</span></li>
-            <li>Жуковский - Пауковский</li>
-        </ol> 
+        <c:choose>
+            <c:when test="${requestScope.NoResultException}">
+                <p>Данным игроком еще не сыграно матчей.</p>
+            </c:when>
+            <c:when test="${empty requestScope.matches}">
+                <p>Еще не сыграно ни одного матча.</p>
+            </c:when>
+            <c:otherwise>
+                <ol>
+                    <c:forEach var="matchResult" items="${requestScope.matches}">
+                        <c:choose>
+                            <c:when test="${matchResult.player1 eq matchResult.winner}">
+                                <li><span class="winner">${matchResult.player1}</span> - <span>${matchResult.player2}</span></li>
+                            </c:when>
+                            <c:when test="${matchResult.player2 eq matchResult.winner}">
+                                <li><span>${matchResult.player1}</span> - <span class="winner">${matchResult.player2}</span></li>
+                            </c:when>
+                        </c:choose>
+                    </c:forEach>
+                </ol>
+            </c:otherwise>
+        </c:choose>
     </div>
     <div>
         <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${requestScope.uuid}">
