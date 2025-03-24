@@ -6,12 +6,16 @@ import com.project.dto.FinishedMatchDto;
 import com.project.entity.MatchScore;
 import com.project.entity.Matches;
 import jakarta.persistence.PersistenceException;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Getter
 public class FinishedMatchesPersistenceService {
+
+    private final Integer numberOfLinesPerPage = 5;
 
     public void save(MatchScore matchScore) {
         MatchDao matchDao = MatchDao.getInstance();
@@ -23,11 +27,17 @@ public class FinishedMatchesPersistenceService {
     }
 
 
-    public List<FinishedMatchDto> getFinishedMatches() {
+    public List<FinishedMatchDto> getFinishedMatches(Integer page) {
 
-        var matches = MatchDao.getInstance().getMatches();
+        var matches = MatchDao.getInstance().getMatchesForPagination(page, numberOfLinesPerPage);
 
         return MatchesListToDtoList(matches);
+    }
+
+
+    public Long getNumberOfPages() {
+        var matchesCount = MatchDao.getInstance().getMatchesCount();
+        return (matchesCount + numberOfLinesPerPage - 1) / numberOfLinesPerPage;
     }
 
 
