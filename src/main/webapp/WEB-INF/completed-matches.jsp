@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -30,7 +30,7 @@
                 <p>Еще не сыграно ни одного матча.</p>
             </c:when>
             <c:otherwise>
-                <ol>
+                <ol start="${requestScope.numberOfLinesPerPage * (requestScope.currentPage - 1) + 1}">
                     <c:forEach var="matchResult" items="${requestScope.matches}">
                         <c:choose>
                             <c:when test="${matchResult.player1 eq matchResult.winner}">
@@ -46,13 +46,44 @@
         </c:choose>
     </div>
     <div>
-        <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${requestScope.uuid}">
-            <button type="submit" name="winner" value="player1">&lt;&lt;</button>
-            <label>..3..</label>
-            <button type="submit" name="winner" value="player2">&gt;&gt;</button>
-        </form>
+        <c:choose>
+            <c:when test="${requestScope.totalPages == 1}">
+            </c:when>
+            <c:otherwise>
+                <form method="get" action="${pageContext.request.contextPath}/matches">
+                    Страницы:
+                    <c:if test="${requestScope.currentPage > 2}">
+                        <button type="submit" name="page" value="1" title="Перейти к первой станице">&lt;&lt;</button>
+                    </c:if>
+                    <c:if test="${requestScope.currentPage > 1}">
+                        <button type="submit" name="page" value="${requestScope.currentPage - 1}" title="Перейти на страницу назад">&lt;</button>
+                    </c:if>
+                    <label>
+                        <c:if test="${requestScope.currentPage > 1}">
+                            1
+                        </c:if>
+                        <c:if test="${requestScope.currentPage > 2}">
+                            . .
+                        </c:if>
+                        <span class="winner">${requestScope.currentPage}</span>
+                        <c:if test="${(requestScope.totalPages - requestScope.currentPage) > 1}">
+                            . .
+                        </c:if>
+                        <c:if test="${(requestScope.totalPages - requestScope.currentPage) > 0}">
+                              ${requestScope.totalPages}
+                        </c:if>
+                    </label>
+                    <c:if test="${(requestScope.totalPages - requestScope.currentPage) > 0}">
+                        <button type="submit" name="page" value="${requestScope.currentPage + 1}" title="Перейти на страницу вперед">&gt;</button>
+                    </c:if>
+                    <c:if test="${(requestScope.totalPages - requestScope.currentPage) > 1}">
+                        <button type="submit" name="page" value="${requestScope.totalPages}" title="Перейти к последней странице">&gt;&gt;</button>
+                    </c:if>
+                </form>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
-<img src="${pageContext.request.contextPath}/images/racket.png">
+<img src="${pageContext.request.contextPath}/images/racket.png" alt="">
 </body>
 </html>
