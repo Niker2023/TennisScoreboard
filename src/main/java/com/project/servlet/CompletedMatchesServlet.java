@@ -19,14 +19,23 @@ public class CompletedMatchesServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        int pageNumber;
+
         var filterByPlayerName = request.getParameter("playerName");
+        var page = request.getParameter("page");
+
+        if (page == null || page.isBlank() || Integer.parseInt(page) < 1) {
+            pageNumber = 1;
+        } else {
+            pageNumber = Integer.parseInt(request.getParameter("page"));
+        }
 
         FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
 
         List<FinishedMatchDto> finishedMatches = new ArrayList<>();
 
         if (filterByPlayerName == null || filterByPlayerName.isBlank()) {
-            finishedMatches = finishedMatchesPersistenceService.getFinishedMatches();
+            finishedMatches = finishedMatchesPersistenceService.getFinishedMatches(pageNumber);
         } else {
             try {
                 finishedMatches = finishedMatchesPersistenceService.getFinishedMatchesByPlayerName(filterByPlayerName);
@@ -35,6 +44,11 @@ public class CompletedMatchesServlet extends HttpServlet {
             }
         }
 
+        var numberOfPages = finishedMatchesPersistenceService.getNumberOfPages();
+
+        request.setAttribute("currentPage", pageNumber);
+        request.setAttribute("totalPages", numberOfPages);
+        request.setAttribute("numberOfLinesPerPage", finishedMatchesPersistenceService.getNumberOfLinesPerPage());
         request.setAttribute("matches", finishedMatches);
 
         request.getRequestDispatcher("/WEB-INF/completed-matches.jsp")
