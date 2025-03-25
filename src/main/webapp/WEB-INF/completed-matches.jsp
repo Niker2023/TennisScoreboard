@@ -16,6 +16,9 @@
                 type="text"
                 name="playerName"
                 placeholder="Введите имя игрока"
+            <c:if test="${not empty requestScope.filterByPlayerName}">
+                value="${requestScope.filterByPlayerName}"
+            </c:if>
             >
             </label>
             <button type="submit">Найти</button>
@@ -51,6 +54,9 @@
             </c:when>
             <c:otherwise>
                 <form method="get" action="${pageContext.request.contextPath}/matches">
+                    <c:if test="${not empty requestScope.filterByPlayerName}">
+                        <input type="hidden"  name="playerName" value="${requestScope.filterByPlayerName}"/>
+                    </c:if>
                     Страницы:
                     <c:if test="${requestScope.currentPage > 2}">
                         <button type="submit" name="page" value="1" title="Перейти к первой станице">&lt;&lt;</button>
