@@ -21,6 +21,7 @@
             </c:if>
             >
             </label>
+            <button type="button" onclick="clearInput()">X</button>
             <button type="submit">Найти</button>
         </form>
     </div>
@@ -91,5 +92,10 @@
     </div>
 </div>
 <img src="${pageContext.request.contextPath}/images/racket.png" alt="">
+<script>
+    function clearInput() {
+        document.getElementById('playerName').value = '';
+    }
+</script>
 </body>
 </html>
