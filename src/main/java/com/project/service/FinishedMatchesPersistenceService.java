@@ -5,6 +5,7 @@ import com.project.dao.PlayerDao;
 import com.project.dto.FinishedMatchDto;
 import com.project.entity.MatchScore;
 import com.project.entity.Matches;
+import com.project.entity.Players;
 import jakarta.persistence.PersistenceException;
 import lombok.Getter;
 
@@ -27,9 +28,9 @@ public class FinishedMatchesPersistenceService {
     }
 
 
-    public List<FinishedMatchDto> getFinishedMatches(Integer page) {
+    public List<FinishedMatchDto> getFinishedMatches(Integer CurrentPage) {
 
-        var matches = MatchDao.getInstance().getMatchesForPagination(page, numberOfLinesPerPage);
+        var matches = MatchDao.getInstance().getMatches(CurrentPage, numberOfLinesPerPage);
 
         return MatchesListToDtoList(matches);
     }
@@ -41,10 +42,17 @@ public class FinishedMatchesPersistenceService {
     }
 
 
-    public List<FinishedMatchDto> getFinishedMatchesByPlayerName(String playerName) throws PersistenceException {
+    public Long getNumberOfPagesByName(String playerName) {
+        var player = PlayerDao.getInstance().getPlayerByName(playerName);
+        var matchesCountByPlayer = MatchDao.getInstance().getMatchesCountByPlayer(player);
+        return (matchesCountByPlayer + numberOfLinesPerPage - 1) / numberOfLinesPerPage;
+    }
 
-        var playerId = PlayerDao.getInstance().getPlayerByName(playerName);
-        var matches = MatchDao.getInstance().getMatchesByPlayer(playerId);
+
+    public List<FinishedMatchDto> getFinishedMatchesByPlayerName(String playerName, Integer currentPage) throws PersistenceException {
+
+        var player = PlayerDao.getInstance().getPlayerByName(playerName);
+        var matches = MatchDao.getInstance().getMatchesByPlayer(player, currentPage, numberOfLinesPerPage);
 
         return MatchesListToDtoList(matches);
     }
