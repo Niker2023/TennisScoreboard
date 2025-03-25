@@ -22,6 +22,7 @@ public class CompletedMatchesServlet extends HttpServlet {
         int pageNumber;
 
         var filterByPlayerName = request.getParameter("playerName");
+
         var page = request.getParameter("page");
 
         if (page == null || page.isBlank() || Integer.parseInt(page) < 1) {
@@ -34,17 +35,20 @@ public class CompletedMatchesServlet extends HttpServlet {
 
         List<FinishedMatchDto> finishedMatches = new ArrayList<>();
 
+        Long numberOfPages = 0L;
+
         if (filterByPlayerName == null || filterByPlayerName.isBlank()) {
             finishedMatches = finishedMatchesPersistenceService.getFinishedMatches(pageNumber);
+            numberOfPages = finishedMatchesPersistenceService.getNumberOfPages();
         } else {
             try {
-                finishedMatches = finishedMatchesPersistenceService.getFinishedMatchesByPlayerName(filterByPlayerName);
+                finishedMatches = finishedMatchesPersistenceService.getFinishedMatchesByPlayerName(filterByPlayerName, pageNumber);
+                numberOfPages = finishedMatchesPersistenceService.getNumberOfPagesByName(filterByPlayerName);
+                request.setAttribute("filterByPlayerName", filterByPlayerName);
             } catch (PersistenceException e) {
                 request.setAttribute("NoResultException", true);
             }
         }
-
-        var numberOfPages = finishedMatchesPersistenceService.getNumberOfPages();
 
         request.setAttribute("currentPage", pageNumber);
         request.setAttribute("totalPages", numberOfPages);
