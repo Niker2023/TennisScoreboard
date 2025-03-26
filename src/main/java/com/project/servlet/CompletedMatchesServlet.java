@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @WebServlet("/matches")
 public class CompletedMatchesServlet extends HttpServlet {
@@ -22,6 +23,8 @@ public class CompletedMatchesServlet extends HttpServlet {
         int pageNumber;
 
         var filterByPlayerName = request.getParameter("playerName");
+
+        Pattern patternName = Pattern.compile("^[A-Za-zА-Яа-яЁё\\s-.]+$");
 
         var page = request.getParameter("page");
 
@@ -40,6 +43,12 @@ public class CompletedMatchesServlet extends HttpServlet {
         if (filterByPlayerName == null || filterByPlayerName.isBlank()) {
             finishedMatches = finishedMatchesPersistenceService.getFinishedMatches(pageNumber);
             numberOfPages = finishedMatchesPersistenceService.getNumberOfPages();
+        } else if (filterByPlayerName.length() > 20 || !patternName.matcher(filterByPlayerName).matches()) {
+            request.setAttribute("IncorrectNameException", true);
+            request.setAttribute("filterByPlayerName", filterByPlayerName);
+            request.getRequestDispatcher("/WEB-INF/completed-matches.jsp")
+                    .forward(request, response);
+            return;
         } else {
             try {
                 finishedMatches = finishedMatchesPersistenceService.getFinishedMatchesByPlayerName(filterByPlayerName, pageNumber);
