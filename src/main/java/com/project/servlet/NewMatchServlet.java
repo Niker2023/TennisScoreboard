@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 @WebServlet("/new-match")
 public class NewMatchServlet extends HttpServlet {
@@ -27,7 +28,21 @@ public class NewMatchServlet extends HttpServlet {
         var player1 = request.getParameter("player1");
         var player2 = request.getParameter("player2");
 
-        if (player1 != null && player1.equals(player2)) {
+        Pattern patternName = Pattern.compile("^[A-Za-zА-Яа-яЁё\\s-.]+$");
+
+        if (player1 == null || player2 == null || player1.isBlank() || player2.isBlank()
+                || !patternName.matcher(player1).matches() || !patternName.matcher(player2).matches()) {
+            request.setAttribute("error", true);
+            request.setAttribute("error_message", """
+                    Имя введено некорректно! <br>
+                                    Допустимы для ввода: буквы, пробел, точка, дефис.<br>
+                                    Максимальное длина имени 20 символов.""");
+            request.getRequestDispatcher("/WEB-INF/new-match.jsp")
+                    .forward(request, response);
+            return;
+        }
+
+        if (player1.equals(player2)) {
             request.setAttribute("error", true);
             request.setAttribute("error_message", "Имена игроков одинаковы!");
 
