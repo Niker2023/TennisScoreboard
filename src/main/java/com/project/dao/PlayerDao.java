@@ -27,15 +27,6 @@ public class PlayerDao {
     }
 
 
-    public String getNameById(int id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        Players player = session.get(Players.class, id);
-        session.getTransaction().commit();
-        return player.getName();
-    }
-
-
     public Players getPlayerById(int id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
