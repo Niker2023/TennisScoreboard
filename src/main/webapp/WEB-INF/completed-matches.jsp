@@ -16,6 +16,7 @@
                 type="text"
                 name="playerName"
                 placeholder="Введите имя игрока"
+                title="Допустимы для ввода: буквы, пробел, точка, дефис. Максимальное длина имени 20 символов."
             <c:if test="${not empty requestScope.filterByPlayerName}">
                 value="${requestScope.filterByPlayerName}"
             </c:if>
@@ -27,6 +28,13 @@
     </div>
     <div class="tableau">
         <c:choose>
+            <c:when test="${requestScope.IncorrectNameException}">
+                    <p class="error">Имя игрока введено некорректно! <br>
+                        Допустимы для ввода: буквы, пробел, точка, дефис.<br>
+                        Максимальное длина имени 20 символов.<br>
+                        Для вывода всех сыгранных матчей осуществите<br>
+                        поиск вез ввода символов.</p>
+            </c:when>
             <c:when test="${requestScope.NoResultException}">
                 <p>Данным игроком еще не сыграно матчей.</p>
             </c:when>
@@ -51,7 +59,9 @@
     </div>
     <div>
         <c:choose>
-            <c:when test="${requestScope.totalPages == 1}">
+            <c:when test="${requestScope.IncorrectNameException}">
+            </c:when>
+            <c:when test="${requestScope.totalPages < 2}">
             </c:when>
             <c:otherwise>
                 <form method="get" action="${pageContext.request.contextPath}/matches">
