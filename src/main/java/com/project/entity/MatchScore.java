@@ -1,5 +1,6 @@
 package com.project.entity;
 
+import com.project.dto.PlayerDto;
 import com.project.util.Player;
 
 import java.util.HashMap;
@@ -9,7 +10,7 @@ public class MatchScore {
 
     private final Map<String, String> scores;
 
-    public MatchScore(Integer player1, Integer player2) {
+    public MatchScore(PlayerDto player1, PlayerDto player2) {
         scores = new HashMap<>();
         scores.put("player1Id", player1.id().toString());
         scores.put("player2Id", player2.id().toString());
