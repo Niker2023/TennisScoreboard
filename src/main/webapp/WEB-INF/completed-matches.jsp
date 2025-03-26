@@ -100,6 +100,9 @@
             </c:otherwise>
         </c:choose>
     </div>
+    <form action=${requestScope.new_match_url}>
+        <button>Вернуться на главную страницу</button>
+    </form>
 </div>
 <img src="${pageContext.request.contextPath}/images/racket.png" alt="">
 <script>
