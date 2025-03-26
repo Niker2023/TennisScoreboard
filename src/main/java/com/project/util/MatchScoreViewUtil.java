@@ -1,21 +1,13 @@
 package com.project.util;
 
-import com.project.dao.PlayerDao;
 import com.project.entity.MatchScore;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class MatchScoreViewUtil {
 
     public static HttpServletRequest getFilledRequest (HttpServletRequest req, MatchScore match) {
-
-        Integer player1Id = match.getPlayer1Id();
-        Integer player2Id = match.getPlayer2Id();
-
-        String player1 = PlayerDao.getInstance().getNameById(player1Id);
-        String player2 = PlayerDao.getInstance().getNameById(player2Id);
-
-        req.setAttribute(Player.ONE.toString(), "%s".formatted(player1));
-        req.setAttribute(Player.TWO.toString(), "%s".formatted(player2));
+        req.setAttribute(Player.ONE.toString(), "%s".formatted(match.getPlayer1Name()));
+        req.setAttribute(Player.TWO.toString(), "%s".formatted(match.getPlayer2Name()));
 
         Integer set1ScorePlayer1 = match.getSet1Score(Player.ONE.toString());
         Integer set1ScorePlayer2 = match.getSet1Score(Player.TWO.toString());
@@ -38,16 +30,21 @@ public class MatchScoreViewUtil {
         req.setAttribute("pointsScorePlayer1", "%s".formatted(pointsView(match, Player.ONE.toString())));
         req.setAttribute("pointsScorePlayer2", "%s".formatted(pointsView(match, Player.TWO.toString())));
 
-        req.setAttribute("winnerName", winnerName(match.getWinnerId()));
+        req.setAttribute("winnerName", winnerName(match));
 
         return req;
     }
 
-    private static String winnerName(Integer winnerId) {
-        if (winnerId == 0) {
+
+    private static String winnerName(MatchScore matchScore) {
+        if (matchScore.getWinnerId() == 0) {
             return "0";
         } else {
-            return PlayerDao.getInstance().getNameById(winnerId);
+            if (matchScore.getWinnerId().equals(matchScore.getPlayer1Id())) {
+                return matchScore.getPlayer1Name();
+            } else {
+                return matchScore.getPlayer2Name();
+            }
         }
     }
 
