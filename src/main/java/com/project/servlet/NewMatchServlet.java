@@ -1,5 +1,6 @@
 package com.project.servlet;
 
+import com.project.dto.PlayerDto;
 import com.project.entity.MatchScore;
 import com.project.service.OngoingMatchesService;
 import com.project.service.PlayersPersistenceService;
@@ -52,10 +53,10 @@ public class NewMatchServlet extends HttpServlet {
         }
 
         var playersPersistenceService = new PlayersPersistenceService();
-        Integer playerId1;
-        Integer playerId2;
+        PlayerDto player1Dto;
+        PlayerDto player2Dto;
         try {
-            playerId1 = playersPersistenceService.save(player1);
+            player1Dto = playersPersistenceService.save(player1);
         } catch (PersistenceException e) {
             request.setAttribute("error", true);
             request.setAttribute("error_message", "Имя первого игрока уже существует в базе данных! Введите другое.");
@@ -66,7 +67,7 @@ public class NewMatchServlet extends HttpServlet {
         }
 
         try {
-            playerId2 = playersPersistenceService.save(player2);
+            player2Dto = playersPersistenceService.save(player2);
         } catch (PersistenceException e) {
             request.setAttribute("error", true);
             request.setAttribute("error_message", "Имя второго игрока уже существует в базе данных! Введите другое.");
@@ -76,7 +77,7 @@ public class NewMatchServlet extends HttpServlet {
             return;
         }
 
-        MatchScore newMatch = new MatchScore(playerId1, playerId2);
+        MatchScore newMatch = new MatchScore(player1Dto, player2Dto);
         UUID newMatchUuid = OngoingMatchesService.addMatch(newMatch);
 
         response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + newMatchUuid);
