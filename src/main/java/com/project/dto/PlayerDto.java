@@ -1,5 +1,3 @@
 package com.project.dto;
 
-public record PlayerDto(String playerName) {
-
-}
+public record PlayerDto(Integer id, String playerName) {}
