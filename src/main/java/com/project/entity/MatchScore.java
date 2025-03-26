@@ -115,7 +115,17 @@ public class MatchScore {
     }
 
 
-    private Map<String, Integer> getMap() {
+    public String getPlayer1Name() {
+        return scores.get("player1Name");
+    }
+
+
+    public String getPlayer2Name() {
+        return scores.get("player2Name");
+    }
+
+
+    private Map<String, String> getMap() {
         return scores;
     }
 
