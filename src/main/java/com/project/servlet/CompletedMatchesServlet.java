@@ -28,6 +28,8 @@ public class CompletedMatchesServlet extends HttpServlet {
 
         var page = request.getParameter("page");
 
+        request.setAttribute("new_match_url", "home-page");
+
         if (page == null || page.isBlank() || Integer.parseInt(page) < 1) {
             pageNumber = 1;
         } else {
