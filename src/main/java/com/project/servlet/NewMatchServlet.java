@@ -68,7 +68,8 @@ public class NewMatchServlet extends HttpServlet {
             return;
         }
         MatchScore newMatch = new MatchScore(player1Dto, player2Dto);
-        UUID newMatchUuid = OngoingMatchesService.addMatch(newMatch);
+        OngoingMatchesService ongoingMatchesService = new OngoingMatchesService();
+        UUID newMatchUuid = ongoingMatchesService.addMatch(newMatch);
         response.sendRedirect(request.getContextPath() + "/match-score?uuid=" + newMatchUuid);
     }
 }
