@@ -12,12 +12,6 @@ import org.hibernate.query.Query;
 @NoArgsConstructor
 public class PlayerDao {
 
-    private static final PlayerDao INSTANCE = new PlayerDao();
-
-    public static PlayerDao getInstance() {
-        return INSTANCE;
-    }
-
     public void save(Players player) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
