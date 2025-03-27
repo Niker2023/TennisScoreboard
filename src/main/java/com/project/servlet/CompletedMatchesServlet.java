@@ -58,7 +58,7 @@ public class CompletedMatchesServlet extends HttpServlet {
         }
         request.setAttribute("currentPage", pageNumber);
         request.setAttribute("totalPages", numberOfPages);
-        request.setAttribute("numberOfLinesPerPage", finishedMatchesPersistenceService.getNUMBER_OF_LINES_PER_PAGE());
+        request.setAttribute("numberOfLinesPerPage", FinishedMatchesPersistenceService.getNUMBER_OF_LINES_PER_PAGE());
         request.setAttribute("matches", finishedMatches);
         request.getRequestDispatcher("/WEB-INF/completed-matches.jsp")
                 .forward(request, response);
