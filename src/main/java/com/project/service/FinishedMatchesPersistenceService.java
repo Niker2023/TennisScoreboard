@@ -11,51 +11,42 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Getter
 public class FinishedMatchesPersistenceService {
 
-    private final Integer numberOfLinesPerPage = 5;
+    @Getter
+    private static final int NUMBER_OF_LINES_PER_PAGE = 5;
+    private final MatchDao matchDao = new MatchDao();
+    private final PlayerDao playerDao = new PlayerDao();
 
     public void save(MatchScore matchScore) {
-        MatchDao matchDao = MatchDao.getInstance();
         Matches match = new Matches();
-        match.setPlayer1(PlayerDao.getInstance().getPlayerById(matchScore.getPlayer1Id()));
-        match.setPlayer2(PlayerDao.getInstance().getPlayerById(matchScore.getPlayer2Id()));
-        match.setWinner(PlayerDao.getInstance().getPlayerById(matchScore.getWinnerId()));
+        match.setPlayer1(playerDao.getPlayerById(matchScore.getPlayer1Id()));
+        match.setPlayer2(playerDao.getPlayerById(matchScore.getPlayer2Id()));
+        match.setWinner(playerDao.getPlayerById(matchScore.getWinnerId()));
         matchDao.save(match);
     }
 
-
     public List<FinishedMatchDto> getFinishedMatches(Integer CurrentPage) {
-
-        var matches = MatchDao.getInstance().getMatches(CurrentPage, numberOfLinesPerPage);
-
+        var matches = matchDao.getMatches(CurrentPage, NUMBER_OF_LINES_PER_PAGE);
         return MatchesListToDtoList(matches);
     }
-
 
     public Long getNumberOfPages() {
-        var matchesCount = MatchDao.getInstance().getMatchesCount();
-        return (matchesCount + numberOfLinesPerPage - 1) / numberOfLinesPerPage;
+        var matchesCount = matchDao.getMatchesCount();
+        return (matchesCount + NUMBER_OF_LINES_PER_PAGE - 1) / NUMBER_OF_LINES_PER_PAGE;
     }
-
 
     public Long getNumberOfPagesByName(String playerName) {
-        var player = PlayerDao.getInstance().getPlayerByName(playerName);
-        var matchesCountByPlayer = MatchDao.getInstance().getMatchesCountByPlayer(player);
-        return (matchesCountByPlayer + numberOfLinesPerPage - 1) / numberOfLinesPerPage;
+        var player = playerDao.getPlayerByName(playerName);
+        var matchesCountByPlayer = matchDao.getMatchesCountByPlayer(player);
+        return (matchesCountByPlayer + NUMBER_OF_LINES_PER_PAGE - 1) / NUMBER_OF_LINES_PER_PAGE;
     }
-
 
     public List<FinishedMatchDto> getFinishedMatchesByPlayerName(String playerName, Integer currentPage) throws PersistenceException {
-
-        var player = PlayerDao.getInstance().getPlayerByName(playerName);
-        var matches = MatchDao.getInstance().getMatchesByPlayer(player, currentPage, numberOfLinesPerPage);
-
+        var player = playerDao.getPlayerByName(playerName);
+        var matches = matchDao.getMatchesByPlayer(player, currentPage, NUMBER_OF_LINES_PER_PAGE);
         return MatchesListToDtoList(matches);
     }
-
 
     private List<FinishedMatchDto> MatchesListToDtoList(List<Matches> matchesList) {
         List<FinishedMatchDto> finishedMatches = new ArrayList<>();
@@ -64,7 +55,6 @@ public class FinishedMatchesPersistenceService {
         }
         return finishedMatches;
     }
-
 
     private FinishedMatchDto toDto(Matches match) {
         String player1Name = match.getPlayer1().getName();
