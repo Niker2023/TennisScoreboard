@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <html>
  <head>
@@ -46,7 +46,7 @@
               </form>
           </div>
       </div>
-          <img src="${pageContext.request.contextPath}/images/referee.png">
+          <img src="${pageContext.request.contextPath}/images/referee.png" alt="" width="1464" height="1847">
       </c:when>
       <c:otherwise>
           <div>
@@ -58,7 +58,7 @@
           </div>
       </div>
           <h1>Поздравляем ${requestScope.winnerName} с победой! </h1>
-          <img src="${pageContext.request.contextPath}/images/win%20match.png">
+          <img src="${pageContext.request.contextPath}/images/win%20match.png" alt="">
       </c:otherwise>
   </c:choose>
  </body>
