@@ -6,19 +6,19 @@ import java.util.*;
 
 public class OngoingMatchesService {
 
-    private final Map<UUID, MatchScore> matches = new HashMap<>();
+    private static final Map<UUID, MatchScore> matches = new HashMap<>();
 
-    public UUID addMatch(MatchScore matchScore) {
+    public synchronized UUID addMatch(MatchScore matchScore) {
         UUID uuid = UUID.randomUUID();
         matches.put(uuid, matchScore);
         return uuid;
     }
 
-    public MatchScore getMatch(UUID uuid) {
+    public synchronized MatchScore getMatch(UUID uuid) {
         return matches.get(uuid);
     }
 
-    public void removeMatch(UUID uuid) {
+    public synchronized void removeMatch(UUID uuid) {
         matches.remove(uuid);
     }
 }
