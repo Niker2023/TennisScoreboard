@@ -2,7 +2,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <html>
  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.75">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Текущий матч</title>
     <link rel ="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/match-score.css">
@@ -46,7 +46,7 @@
               </form>
           </div>
       </div>
-          <img src="${pageContext.request.contextPath}/images/referee.png" alt="" width="1464" height="1847">
+          <img src="${pageContext.request.contextPath}/images/referee.png" alt="">
       </c:when>
       <c:otherwise>
           <div>
