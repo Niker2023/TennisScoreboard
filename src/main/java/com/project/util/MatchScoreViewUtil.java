@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class MatchScoreViewUtil {
 
-    public static HttpServletRequest getFilledRequest (HttpServletRequest req, MatchScore match) {
+    public HttpServletRequest getFilledRequest (HttpServletRequest req, MatchScore match) {
         req.setAttribute(Player.ONE.toString(), "%s".formatted(match.getPlayer1Name()));
         req.setAttribute(Player.TWO.toString(), "%s".formatted(match.getPlayer2Name()));
 
@@ -35,8 +35,7 @@ public class MatchScoreViewUtil {
         return req;
     }
 
-
-    private static String winnerName(MatchScore matchScore) {
+    private String winnerName(MatchScore matchScore) {
         if (matchScore.getWinnerId() == 0) {
             return "0";
         } else {
@@ -48,8 +47,7 @@ public class MatchScoreViewUtil {
         }
     }
 
-
-    private static String pointsView(MatchScore match, String player1) {
+    private String pointsView(MatchScore match, String player1) {
         String player2;
         if ("player1".equals(player1)) {
             player2 = "player2";
@@ -75,8 +73,7 @@ public class MatchScoreViewUtil {
         return "0";
     }
 
-
-    private static boolean isTiebreak(MatchScore match) {
+    private boolean isTiebreak(MatchScore match) {
         return (match.getSet1Score("player1") == 6 && match.getSet1Score("player2") == 6)
                 || (match.getSet2Score("player1") == 6 && match.getSet2Score("player2") == 6)
                 || (match.getSet3Score("player1") == 6 && match.getSet3Score("player2") == 6);
