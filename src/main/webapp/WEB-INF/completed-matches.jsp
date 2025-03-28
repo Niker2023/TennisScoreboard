@@ -29,21 +29,14 @@
     </div>
     <div class="tableau">
         <c:choose>
-            <c:when test="${requestScope.IncorrectNameException}">
-                    <p class="error">Имя игрока введено некорректно! <br>
-                        Допустимы для ввода: буквы, пробел, точка, дефис.<br>
-                        Максимальное длина имени 20 символов.<br>
-                        Для вывода всех сыгранных матчей осуществите<br>
-                        поиск вез ввода символов.</p>
-            </c:when>
-            <c:when test="${requestScope.NoResultException}">
-                <p>Данным игроком еще не сыграно матчей.</p>
+            <c:when test="${requestScope.error}">
+                <p class="error">"${requestScope.errorMessage}"</p>
             </c:when>
             <c:when test="${empty requestScope.matches}">
                 <p>Еще не сыграно ни одного матча.</p>
             </c:when>
             <c:otherwise>
-                <ol start="${requestScope.numberOfLinesPerPage * (requestScope.currentPage - 1) + 1}">
+                <ol start="${requestScope.initialDigitOfNumbering}">
                     <c:forEach var="matchResult" items="${requestScope.matches}">
                         <c:choose>
                             <c:when test="${matchResult.player1 eq matchResult.winner}">
