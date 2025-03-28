@@ -7,12 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MatchScoreCalculationServiceTest {
 
+    private final MatchScoreCalculationService matchScoreCalculationService =  new MatchScoreCalculationService();
+
     @Test
     void whenPlayer1WinsPoint_thenSuccess() {
         var testMatch = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
         testMatch.setPoints("player1",3);
         testMatch.setPoints("player2",3);
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player1");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player1");
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
         expectedMatchResult.setPoints("player1",4);
@@ -26,7 +28,7 @@ class MatchScoreCalculationServiceTest {
         var testMatch = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
         testMatch.setPoints("player1",3);
         testMatch.setPoints("player2",4);
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player2");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player2");
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
         expectedMatchResult.setPoints("player1",0);
@@ -41,7 +43,7 @@ class MatchScoreCalculationServiceTest {
         var testMatch = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
         testMatch.setPoints("player1",3);
         testMatch.setPoints("player2",0);
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player1");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player1");
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
         expectedMatchResult.setPoints("player1",0);
@@ -55,7 +57,7 @@ class MatchScoreCalculationServiceTest {
         var testMatch = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
         testMatch.setPoints("player1",5);
         testMatch.setPoints("player2",6);
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player2");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player2");
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
         expectedMatchResult.setPoints("player1",0);
@@ -72,7 +74,7 @@ class MatchScoreCalculationServiceTest {
         testMatch.setPoints("player2",2);
         testMatch.setSet1Score("player1", 5);
         testMatch.setSet1Score("player2", 4);
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player1");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player1");
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
         expectedMatchResult.setPoints("player1",0);
@@ -90,11 +92,11 @@ class MatchScoreCalculationServiceTest {
         testMatch.setPoints("player1",2);
         testMatch.setSet1Score("player2", 5);
         testMatch.setSet1Score("player1", 4);
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player2");
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player2");
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player2");
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player2");
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player2");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player2");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player2");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player2");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player2");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player2");
 
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
@@ -116,7 +118,7 @@ class MatchScoreCalculationServiceTest {
         testMatch.setSet1Score("player1", 5);
         testMatch.setSet1Score("player2", 6);
         for (int i = 0; i < 9; i++) {
-            MatchScoreCalculationService.changeMatchScore(testMatch, "player1");
+            matchScoreCalculationService.changeMatchScore(testMatch, "player1");
         }
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
@@ -139,7 +141,7 @@ class MatchScoreCalculationServiceTest {
         testMatch.setSet2Score("player1", 6);
         testMatch.setSet2Score("player2", 6);
         for (int i = 0; i < 11; i++) {
-            MatchScoreCalculationService.changeMatchScore(testMatch, "player1");
+            matchScoreCalculationService.changeMatchScore(testMatch, "player1");
         }
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
@@ -164,7 +166,7 @@ class MatchScoreCalculationServiceTest {
         testMatch.setSet2Score("player1", 6);
         testMatch.setSet2Score("player2", 6);
         for (int i = 0; i < 4; i++) {
-            MatchScoreCalculationService.changeMatchScore(testMatch, "player2");
+            matchScoreCalculationService.changeMatchScore(testMatch, "player2");
         }
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
@@ -187,7 +189,7 @@ class MatchScoreCalculationServiceTest {
         testMatch.setSet1Score("player2", 6);
         testMatch.setSet2Score("player1", 5);
         testMatch.setSet2Score("player2", 4);
-        MatchScoreCalculationService.changeMatchScore(testMatch, "player1");
+        matchScoreCalculationService.changeMatchScore(testMatch, "player1");
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
         expectedMatchResult.setSet1Score("player1", 7);
@@ -211,7 +213,7 @@ class MatchScoreCalculationServiceTest {
         testMatch.setSet3Score("player1", 6);
         testMatch.setSet3Score("player2", 6);
         for (int i = 0; i < 2; i++) {
-            MatchScoreCalculationService.changeMatchScore(testMatch, "player2");
+            matchScoreCalculationService.changeMatchScore(testMatch, "player2");
         }
 
         var expectedMatchResult = new MatchScore(new PlayerDto(1,""), new PlayerDto(2,""));
