@@ -1,7 +1,7 @@
 package com.project.dao;
 
 import com.project.entity.Players;
-import com.project.exception.HibernateException;
+import com.project.exception.DaoException;
 import com.project.util.HibernateUtil;
 import jakarta.persistence.PersistenceException;
 import lombok.NoArgsConstructor;
@@ -20,13 +20,13 @@ public class PlayerDao {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
             session.persist(player);
-            log.info("save player : {}", player);
             transaction.commit();
         } catch (PersistenceException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new HibernateException("Can`t save player : " + player);
+            log.error("save player error: {}", e.getMessage());
+            throw new DaoException("Имя игрока " + player.getName() + " уже существует! Введите другое.");
         }
     }
 
@@ -42,7 +42,8 @@ public class PlayerDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new HibernateException("Can`t get player : " + id);
+            log.error("getPlayerById error: {}", e.getMessage());
+            throw new DaoException("Can`t get player : " + id + ".");
         }
         return player;
     }
@@ -60,7 +61,8 @@ public class PlayerDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new HibernateException("Can`t get player : " + name);
+            log.error("getPlayerByName error: {}", e.getMessage());
+            throw new DaoException("Can`t get player : " + name + ".");
         }
         return player;
     }
