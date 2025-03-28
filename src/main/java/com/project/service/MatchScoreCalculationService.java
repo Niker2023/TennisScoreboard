@@ -7,10 +7,10 @@ import static java.lang.Math.abs;
 
 public class MatchScoreCalculationService {
 
-    private static String winner;
-    private static String loser;
+    private String winner;
+    private String loser;
 
-    public static void changeMatchScore(MatchScore matchScore, String winningPlayer) {
+    public void changeMatchScore(MatchScore matchScore, String winningPlayer) {
 
         winner = winningPlayer;
         if (winningPlayer.equals(Player.ONE.toString())) {
@@ -65,13 +65,13 @@ public class MatchScoreCalculationService {
     }
 
 
-    private static void resetPoints(MatchScore matchScore) {
+    private void resetPoints(MatchScore matchScore) {
         matchScore.setPoints(winner, 0);
         matchScore.setPoints(loser, 0);
     }
 
 
-    private static boolean isVictoryInTiebreak(MatchScore matchScore) {
+    private boolean isVictoryInTiebreak(MatchScore matchScore) {
         if (matchScore.getSet1Score(winner) == 6 && matchScore.getSet1Score(loser) == 6) {
             if (matchScore.getPoints(winner) > 5 && (matchScore.getPoints(winner) + 1 - matchScore.getPoints(loser)) > 1) {
                 return true;
@@ -88,7 +88,7 @@ public class MatchScoreCalculationService {
         return false;
     }
 
-    private static boolean isTiebreak(MatchScore matchScore) {
+    private boolean isTiebreak(MatchScore matchScore) {
         if ((matchScore.getSet1Score(winner) == 6 && matchScore.getSet1Score(loser) == 6)
                 || (matchScore.getSet2Score(winner) == 6 && matchScore.getSet2Score(loser) == 6)
                 || (matchScore.getSet3Score(winner) == 6 && matchScore.getSet3Score(loser) == 6)) {
@@ -97,7 +97,7 @@ public class MatchScoreCalculationService {
         return false;
     }
 
-    private static boolean isTheEndOfTheMatch(MatchScore matchScore) {
+    private boolean isTheEndOfTheMatch(MatchScore matchScore) {
         if ((matchScore.getSet1Score(winner) > 5 && (matchScore.getSet1Score(winner) - matchScore.getSet1Score(loser)) > 1)
                 || matchScore.getSet1Score(winner) == 7) {
             if ((matchScore.getSet2Score(winner) > 5 && (matchScore.getSet2Score(winner) - matchScore.getSet2Score(loser)) > 1)
@@ -118,12 +118,12 @@ public class MatchScoreCalculationService {
     }
 
 
-    private static boolean isVictoryInGame(MatchScore matchScore) {
+    private boolean isVictoryInGame(MatchScore matchScore) {
         return matchScore.getPoints(winner) > 2 && (matchScore.getPoints(winner) + 1 - matchScore.getPoints(loser)) > 1;
     }
 
 
-    private static boolean isSet1BeingPlayed(MatchScore matchScore) {
+    private boolean isSet1BeingPlayed(MatchScore matchScore) {
         if (((matchScore.getSet1Score(winner) > 5 || matchScore.getSet1Score(loser) > 5)
                 && abs((matchScore.getSet1Score(winner) - matchScore.getSet1Score(loser))) > 1)
                 || matchScore.getSet1Score(winner) == 7 || matchScore.getSet1Score(loser) == 7) {
@@ -133,7 +133,7 @@ public class MatchScoreCalculationService {
     }
 
 
-    private static boolean isSet2BeingPlayed(MatchScore matchScore) {
+    private boolean isSet2BeingPlayed(MatchScore matchScore) {
         if (((matchScore.getSet2Score(winner) > 5 || matchScore.getSet2Score(loser) > 5)
                 && abs((matchScore.getSet2Score(winner) - matchScore.getSet2Score(loser))) > 1)
                 || matchScore.getSet2Score(winner) == 7 || matchScore.getSet2Score(loser) == 7) {
