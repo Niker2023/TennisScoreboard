@@ -1,6 +1,4 @@
-package com.project.entity.matchState.pointsState;
-
-import com.project.entity.matchState.MatchState;
+package com.project.entity.matchState;
 
 public class TiebreakState extends PointsState {
     TiebreakState(MatchState matchState) {
@@ -8,7 +6,7 @@ public class TiebreakState extends PointsState {
     }
 
     @Override
-    public void changePoints(int winnerId) {
+    public void changePoints() {
 
     }
 }

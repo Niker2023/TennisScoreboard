@@ -1,28 +1,22 @@
 package com.project.entity.matchState;
 
-import com.project.entity.NewMatchScore;
-import com.project.entity.matchState.pointsState.GameState;
-import com.project.entity.matchState.pointsState.PointsState;
 import lombok.Getter;
 
 public abstract class MatchState {
 
     @Getter
-    NewMatchScore newMatchScore;
+    Score score;
+    @Getter
     PointsState pointsState;
 
+    String winner;
+    String loser;
 
-    MatchState(NewMatchScore newMatchScore){
-        this.newMatchScore = newMatchScore;
+    MatchState(Score score){
+        this.score = score;
         pointsState = new GameState(this);
     }
 
 
-    public abstract void changeScore(int winnerId);
-
-
-    public void changePointsState(PointsState pointsState) {
-        this.pointsState = pointsState;
-    }
-
+    public abstract void changeScore();
 }
