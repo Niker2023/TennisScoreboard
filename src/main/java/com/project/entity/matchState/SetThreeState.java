@@ -9,5 +9,11 @@ public class SetThreeState extends MatchState {
     @Override
     public void changeScore() {
 
+        pointsState.changePoints();
+
+        if (isSetOver()) {
+            score.setMatchOver(true);
+            score.setWinnerId(winner);
+        }
     }
 }
