@@ -12,5 +12,11 @@ public abstract class PointsState {
         matchState.score.setPoints(Player.TWO.toString(),0);
     }
 
+
     public abstract void changePoints();
+
+
+    void increasePoints() {
+        matchState.score.setPoints(matchState.winner, matchState.score.getPoints(matchState.winner) + 1);
+    }
 }
