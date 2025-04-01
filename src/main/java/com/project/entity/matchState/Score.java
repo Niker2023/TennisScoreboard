@@ -5,12 +5,14 @@ import com.project.util.Player;
 import com.project.util.Set;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
 @Data
 @Setter(AccessLevel.PACKAGE)
 public class Score {
 
+    @EqualsAndHashCode.Exclude
     private MatchState matchState;
 
     private int player1Points = 0;
@@ -25,7 +27,7 @@ public class Score {
     private final int Player2Id;
     private final String Player1Name;
     private final String Player2Name;
-    private boolean isOver = false;
+    private boolean isMatchOver = false;
     private int winnerId;
 
 
@@ -38,11 +40,41 @@ public class Score {
     }
 
 
-    public void playerWinsPoint(PlayerDto winner) {
-        if (winner.id() == Player1Id) {
+    public void SetStatesForTests(int setSetNumber, boolean setTiebreak) {
+        switch (setSetNumber) {
+            case 1 -> {
+                matchState = new SetOneState(this);
+            }
+            case 2 -> {
+                matchState = new SetTwoState(this);
+            }
+            case 3 -> {
+                matchState = new SetThreeState(this);
+            }
+        }
+        if (setTiebreak) {
+            matchState.pointsState = new TiebreakState(matchState);
+        }
+    }
+
+
+    public void playerWinsPointById(int winnerId) {
+        if (winnerId == getPlayer1Id()) {
             matchState.winner = Player.ONE.toString();
             matchState.loser = Player.TWO.toString();
-        } else if (winner.id() == Player2Id) {
+        } else if (winnerId == getPlayer2Id()) {
+            matchState.winner = Player.TWO.toString();
+            matchState.loser = Player.ONE.toString();
+        }
+        matchState.changeScore();
+    }
+
+
+    public void playerWinsPointByPlayerOrder(String playerOrder) {
+        if (playerOrder.equals(Player.ONE.toString())) {
+            matchState.winner = Player.ONE.toString();
+            matchState.loser = Player.TWO.toString();
+        } else if (playerOrder.equals(Player.TWO.toString())) {
             matchState.winner = Player.TWO.toString();
             matchState.loser = Player.ONE.toString();
         }
@@ -103,7 +135,7 @@ public class Score {
     }
 
 
-    public void setPoints(String player, Integer points) {
+    public void setPoints(String player, int points) {
         if (player.equals(Player.ONE.toString())) {
             player1Points = points;
         } else {
@@ -136,5 +168,19 @@ public class Score {
         } else {
             player2Set3Score = score;
         }
+    }
+
+
+    public void setWinnerId(String playerOrder) {
+        if (playerOrder.equals(Player.ONE.toString())) {
+            winnerId = Player1Id;
+        } else {
+            winnerId = Player2Id;
+        }
+    }
+
+
+    public void setMatchIsOver() {
+        isMatchOver = true;
     }
 }
