@@ -4,19 +4,19 @@ public enum Set {
     ONE {
         @Override
         public String toString() {
-            return "set1";
+            return "SetOneState";
         }
     },
     TWO {
         @Override
         public String toString() {
-            return "set2";
+            return "SetTwoState";
         }
     },
     THREE {
         @Override
         public String toString() {
-            return "set3";
+            return "SetThreeState";
         }
     }
 }
