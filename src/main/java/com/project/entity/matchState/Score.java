@@ -2,7 +2,7 @@ package com.project.entity.matchState;
 
 import com.project.dto.PlayerDto;
 import com.project.util.Player;
-import com.project.util.Set;
+import com.project.util.SetNumber;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,7 +27,6 @@ public class Score {
     private final int Player2Id;
     private final String Player1Name;
     private final String Player2Name;
-    private boolean isMatchOver = false;
     private int winnerId;
 
 
@@ -58,32 +57,46 @@ public class Score {
     }
 
 
+    public String getPointsForDisplay(String playerOrder) {
+        return matchState.pointsState.getPointsView(playerOrder);
+    }
+
+
+    public String getWinnerName() {
+        if (winnerId == Player1Id) {
+            return Player1Name;
+        } else {
+            return Player2Name;
+        }
+    }
+
+
     public void playerWinsPointById(int winnerId) {
         if (winnerId == getPlayer1Id()) {
-            matchState.winner = Player.ONE.toString();
-            matchState.loser = Player.TWO.toString();
+            matchState.winner = Player.ONE.getName();
+            matchState.loser = Player.TWO.getName();
         } else if (winnerId == getPlayer2Id()) {
-            matchState.winner = Player.TWO.toString();
-            matchState.loser = Player.ONE.toString();
+            matchState.winner = Player.TWO.getName();
+            matchState.loser = Player.ONE.getName();
         }
         matchState.changeScore();
     }
 
 
     public void playerWinsPointByPlayerOrder(String playerOrder) {
-        if (playerOrder.equals(Player.ONE.toString())) {
-            matchState.winner = Player.ONE.toString();
-            matchState.loser = Player.TWO.toString();
-        } else if (playerOrder.equals(Player.TWO.toString())) {
-            matchState.winner = Player.TWO.toString();
-            matchState.loser = Player.ONE.toString();
+        if (playerOrder.equals(Player.ONE.getName())) {
+            matchState.winner = Player.ONE.getName();
+            matchState.loser = Player.TWO.getName();
+        } else if (playerOrder.equals(Player.TWO.getName())) {
+            matchState.winner = Player.TWO.getName();
+            matchState.loser = Player.ONE.getName();
         }
         matchState.changeScore();
     }
 
 
     public Integer getPoints(String player) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             return player1Points;
         }
         return player2Points;
@@ -91,7 +104,7 @@ public class Score {
 
 
     public Integer getSet1Score(String player) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             return player1Set1Score;
         }
         return player2Set1Score;
@@ -99,18 +112,18 @@ public class Score {
 
 
     public Integer getSetScore(String player, String set) {
-        if (player.equals(Player.ONE.toString())) {
-            if (set.equals(Set.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
+            if (set.equals(SetNumber.ONE.getName())) {
                 return player1Set1Score;
-            } else if (set.equals(Set.TWO.toString())) {
+            } else if (set.equals(SetNumber.TWO.getName())) {
                 return player1Set2Score;
             } else {
                 return player1Set3Score;
             }
         } else {
-            if (set.equals(Set.ONE.toString())) {
+            if (set.equals(SetNumber.ONE.getName())) {
                 return player2Set1Score;
-            } else if (set.equals(Set.TWO.toString())) {
+            } else if (set.equals(SetNumber.TWO.getName())) {
                 return player2Set2Score;
             } else {
                 return player2Set3Score;
@@ -120,7 +133,7 @@ public class Score {
 
 
     public Integer getSet2Score(String player) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             return player1Set2Score;
         }
         return player2Set2Score;
@@ -128,7 +141,7 @@ public class Score {
 
 
     public Integer getSet3Score(String player) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             return player1Set3Score;
         }
         return player2Set3Score;
@@ -136,7 +149,7 @@ public class Score {
 
 
     public void setPoints(String player, int points) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             player1Points = points;
         } else {
             player2Points = points;
@@ -145,7 +158,7 @@ public class Score {
 
 
     public void setSet1Score(String player, Integer score) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             player1Set1Score = score;
         } else {
             player2Set1Score = score;
@@ -154,7 +167,7 @@ public class Score {
 
 
     public void setSet2Score(String player, Integer score) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             player1Set2Score = score;
         } else {
             player2Set2Score = score;
@@ -163,7 +176,7 @@ public class Score {
 
 
     public void setSet3Score(String player, Integer score) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             player1Set3Score = score;
         } else {
             player2Set3Score = score;
@@ -172,7 +185,7 @@ public class Score {
 
 
     public void setWinnerId(String playerOrder) {
-        if (playerOrder.equals(Player.ONE.toString())) {
+        if (playerOrder.equals(Player.ONE.getName())) {
             winnerId = Player1Id;
         } else {
             winnerId = Player2Id;
@@ -180,7 +193,7 @@ public class Score {
     }
 
 
-    public void setMatchIsOver() {
-        isMatchOver = true;
+    public boolean isMatchOver() {
+        return winnerId != 0;
     }
 }
