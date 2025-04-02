@@ -36,7 +36,7 @@ public class MatchScore {
 
 
     public Integer getPoints(String player) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             return scores.get("player1Points");
         }
         return scores.get("player2Points");
@@ -44,7 +44,7 @@ public class MatchScore {
 
 
     public Integer getSet1Score(String player) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             return scores.get("player1Set1Score");
         }
         return scores.get("player2Set1Score");
@@ -52,7 +52,7 @@ public class MatchScore {
 
 
     public Integer getSet2Score(String player) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             return scores.get("player1Set2Score");
         }
         return scores.get("player2Set2Score");
@@ -60,7 +60,7 @@ public class MatchScore {
 
 
     public Integer getSet3Score(String player) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             return scores.get("player1Set3Score");
         }
         return scores.get("player2Set3Score");
@@ -83,7 +83,7 @@ public class MatchScore {
 
 
     public void setPoints(String player, Integer points) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             scores.put("player1Points", points);
         } else {
             scores.put("player2Points", points);
@@ -92,7 +92,7 @@ public class MatchScore {
 
 
     public void setSet1Score(String player, Integer score) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             scores.put("player1Set1Score", score);
         } else {
             scores.put("player2Set1Score", score);
@@ -101,7 +101,7 @@ public class MatchScore {
 
 
     public void setSet2Score(String player, Integer score) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             scores.put("player1Set2Score", score);
         } else {
             scores.put("player2Set2Score", score);
@@ -110,7 +110,7 @@ public class MatchScore {
 
 
     public void setSet3Score(String player, Integer score) {
-        if (player.equals(Player.ONE.toString())) {
+        if (player.equals(Player.ONE.getName())) {
             scores.put("player1Set3Score", score);
         } else {
             scores.put("player2Set3Score", score);
