@@ -1,7 +1,7 @@
 package com.project.service;
 
 import com.project.dto.PlayerDto;
-import com.project.entity.MatchScore;
+import com.project.entity.matchState.Score;
 import com.project.exception.ValidationException;
 import com.project.util.ValidationUtil;
 
@@ -18,7 +18,7 @@ public class MatchCreationService {
         PlayerDto player1Dto = playersPersistenceService.save(player1);
         PlayerDto player2Dto = playersPersistenceService.save(player2);
 
-        MatchScore matchScore = new MatchScore(player1Dto, player2Dto);
+        Score matchScore = new Score(player1Dto, player2Dto);
 
         OngoingMatchesService ongoingMatchesService = new OngoingMatchesService();
 
