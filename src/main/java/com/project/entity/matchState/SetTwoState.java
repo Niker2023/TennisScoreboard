@@ -13,7 +13,6 @@ public class SetTwoState extends MatchState {
 
         if (isSetOver()) {
             if (isMatchOver()) {
-                score.setMatchOver(true);
                 score.setWinnerId(winner);
             } else {
                 score.setMatchState(new SetThreeState(score));
@@ -23,7 +22,8 @@ public class SetTwoState extends MatchState {
 
 
     private boolean isMatchOver() {
-        return score.getSet1Score(winner) == 7
-                || (score.getSet1Score(winner) == 6 && (score.getSet1Score(winner) - score.getSet1Score(loser) > 1));
+        return score.getSet1Score(winner) > MIN_SCORE_TO_WIN
+                || (score.getSet1Score(winner) == MIN_SCORE_TO_WIN
+                && (score.getSet1Score(winner) - score.getSet1Score(loser) >= MIN_POINTS_DIFF_TO_WIN));
     }
 }
