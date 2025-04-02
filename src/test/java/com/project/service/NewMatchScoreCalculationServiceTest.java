@@ -13,15 +13,15 @@ class NewMatchScoreCalculationServiceTest {
     void whenPlayer1WinsPoint_thenSuccess() {
         Score testMatch = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
 
-        testMatch.setPoints(Player.ONE.toString(),3);
-        testMatch.setPoints(Player.TWO.toString(),3);
+        testMatch.setPoints(Player.ONE.getName(),3);
+        testMatch.setPoints(Player.TWO.getName(),3);
 
-        testMatch.playerWinsPointByPlayerOrder(Player.ONE.toString());
+        testMatch.playerWinsPointByPlayerOrder(Player.ONE.getName());
 
         Score expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
 
-        expectedMatchResult.setPoints(Player.ONE.toString(),4);
-        expectedMatchResult.setPoints(Player.TWO.toString(),3);
+        expectedMatchResult.setPoints(Player.ONE.getName(),4);
+        expectedMatchResult.setPoints(Player.TWO.getName(),3);
 
         assertEquals(testMatch, expectedMatchResult);
     }
@@ -33,7 +33,7 @@ class NewMatchScoreCalculationServiceTest {
         testMatch.setPoints("player1",3);
         testMatch.setPoints("player2",4);
 
-        testMatch.playerWinsPointByPlayerOrder(Player.TWO.toString());
+        testMatch.playerWinsPointByPlayerOrder(Player.TWO.getName());
 
         var expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
 
@@ -51,7 +51,7 @@ class NewMatchScoreCalculationServiceTest {
         testMatch.setPoints("player1",3);
         testMatch.setPoints("player2",0);
 
-        testMatch.playerWinsPointByPlayerOrder(Player.ONE.toString());
+        testMatch.playerWinsPointByPlayerOrder(Player.ONE.getName());
 
         var expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
 
@@ -67,7 +67,7 @@ class NewMatchScoreCalculationServiceTest {
 
         testMatch.setPoints("player1",5);
         testMatch.setPoints("player2",6);
-        testMatch.playerWinsPointByPlayerOrder(Player.TWO.toString());
+        testMatch.playerWinsPointByPlayerOrder(Player.TWO.getName());
 
         var expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
 
@@ -87,7 +87,7 @@ class NewMatchScoreCalculationServiceTest {
         testMatch.setSet1Score("player1", 5);
         testMatch.setSet1Score("player2", 4);
 
-        testMatch.playerWinsPointByPlayerOrder(Player.ONE.toString());
+        testMatch.playerWinsPointByPlayerOrder(Player.ONE.getName());
 
         var expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
 
@@ -109,7 +109,7 @@ class NewMatchScoreCalculationServiceTest {
         testMatch.setSet1Score("player1", 4);
 
         for (int i = 0; i < 5; i++) {
-            testMatch.playerWinsPointByPlayerOrder(Player.TWO.toString());
+            testMatch.playerWinsPointByPlayerOrder(Player.TWO.getName());
         }
 
         var expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
@@ -133,7 +133,7 @@ class NewMatchScoreCalculationServiceTest {
         testMatch.setSet1Score("player1", 5);
         testMatch.setSet1Score("player2", 6);
         for (int i = 0; i < 9; i++) {
-            testMatch.playerWinsPointByPlayerOrder(Player.ONE.toString());
+            testMatch.playerWinsPointByPlayerOrder(Player.ONE.getName());
         }
 
         var expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
@@ -158,8 +158,8 @@ class NewMatchScoreCalculationServiceTest {
         testMatch.setSet1Score("player2", 7);
         testMatch.setSet2Score("player1", 6);
         testMatch.setSet2Score("player2", 6);
-        for (int i = 0; i < 10; i++) {
-            testMatch.playerWinsPointByPlayerOrder(Player.ONE.toString());
+        for (int i = 0; i < 11; i++) {
+            testMatch.playerWinsPointByPlayerOrder(Player.ONE.getName());
         }
 
         var expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
@@ -188,7 +188,7 @@ class NewMatchScoreCalculationServiceTest {
         testMatch.setSet2Score("player1", 6);
         testMatch.setSet2Score("player2", 6);
         for (int i = 0; i < 4; i++) {
-            testMatch.playerWinsPointByPlayerOrder(Player.TWO.toString());
+            testMatch.playerWinsPointByPlayerOrder(Player.TWO.getName());
         }
 
         var expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
@@ -216,7 +216,7 @@ class NewMatchScoreCalculationServiceTest {
         testMatch.setSet2Score("player1", 5);
         testMatch.setSet2Score("player2", 4);
 
-        testMatch.playerWinsPointByPlayerOrder(Player.ONE.toString());
+        testMatch.playerWinsPointByPlayerOrder(Player.ONE.getName());
 
         var expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
         expectedMatchResult.setSet1Score("player1", 7);
@@ -224,8 +224,7 @@ class NewMatchScoreCalculationServiceTest {
         expectedMatchResult.setSet2Score("player1", 6);
         expectedMatchResult.setSet2Score("player2", 4);
 
-        expectedMatchResult.setWinnerId(Player.ONE.toString());
-        expectedMatchResult.setMatchIsOver();
+        expectedMatchResult.setWinnerId(Player.ONE.getName());
 
         assertEquals(testMatch, expectedMatchResult);
     }
@@ -246,7 +245,7 @@ class NewMatchScoreCalculationServiceTest {
         testMatch.setSet3Score("player2", 6);
 
         for (int i = 0; i < 2; i++) {
-            testMatch.playerWinsPointByPlayerOrder(Player.TWO.toString());
+            testMatch.playerWinsPointByPlayerOrder(Player.TWO.getName());
         }
 
         var expectedMatchResult = new Score(new PlayerDto(1,""), new PlayerDto(2,""));
@@ -258,8 +257,7 @@ class NewMatchScoreCalculationServiceTest {
         expectedMatchResult.setSet3Score("player1", 6);
         expectedMatchResult.setSet3Score("player2", 7);
 
-        expectedMatchResult.setWinnerId(Player.TWO.toString());
-        expectedMatchResult.setMatchIsOver();
+        expectedMatchResult.setWinnerId(Player.TWO.getName());
 
         assertEquals(testMatch, expectedMatchResult);
     }
