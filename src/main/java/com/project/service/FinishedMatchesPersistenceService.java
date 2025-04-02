@@ -3,8 +3,8 @@ package com.project.service;
 import com.project.dao.MatchDao;
 import com.project.dao.PlayerDao;
 import com.project.dto.FinishedMatchDto;
-import com.project.entity.MatchScore;
 import com.project.entity.Matches;
+import com.project.entity.matchState.Score;
 import com.project.util.ValidationUtil;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class FinishedMatchesPersistenceService {
     private final MatchDao matchDao = new MatchDao();
     private final PlayerDao playerDao = new PlayerDao();
 
-    public void save(MatchScore matchScore) {
+    public void save(Score matchScore) {
 
         Matches match = new Matches();
 
