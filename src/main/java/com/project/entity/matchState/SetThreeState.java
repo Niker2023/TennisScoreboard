@@ -12,7 +12,6 @@ public class SetThreeState extends MatchState {
         pointsState.changePoints();
 
         if (isSetOver()) {
-            score.setMatchOver(true);
             score.setWinnerId(winner);
         }
     }
