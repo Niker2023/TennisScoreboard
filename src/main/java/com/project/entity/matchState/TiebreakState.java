@@ -1,9 +1,11 @@
 package com.project.entity.matchState;
 
 public class TiebreakState extends PointsState {
+
     TiebreakState(MatchState matchState) {
         super(matchState);
     }
+
 
     @Override
     public void changePoints() {
@@ -18,8 +20,15 @@ public class TiebreakState extends PointsState {
     }
 
 
+    @Override
+    String getPointsView(String playerOrder) {
+        return matchState.score.getPoints(playerOrder).toString();
+    }
+
+
     private boolean isTiebreakOver() {
-        return matchState.getScore().getPoints(matchState.winner) > 5
-                && (matchState.score.getPoints(matchState.winner) - matchState.score.getPoints(matchState.loser)) > 1;
+        int MIN_POINTS_TO_WIN_TIEBREAK = 7;
+        return matchState.getScore().getPoints(matchState.winner) >= MIN_POINTS_TO_WIN_TIEBREAK
+                && (matchState.score.getPoints(matchState.winner) - matchState.score.getPoints(matchState.loser)) >= matchState.MIN_POINTS_DIFF_TO_WIN;
     }
 }
