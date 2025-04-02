@@ -1,6 +1,6 @@
 package com.project.entity.matchState;
 
-import com.project.util.Set;
+import com.project.util.SetNumber;
 import lombok.Getter;
 
 public abstract class MatchState {
@@ -9,6 +9,10 @@ public abstract class MatchState {
     Score score;
     @Getter
     PointsState pointsState;
+
+    final int MIN_POINTS_DIFF_TO_WIN = 2;
+    final int MIN_SCORE_DIFF_TO_WIN = 2;
+    final int MIN_SCORE_TO_WIN = 6;
 
     String winner;
     String loser;
@@ -23,14 +27,16 @@ public abstract class MatchState {
 
 
     void increaseSetScore() {
-        switch (this.getClass().getSimpleName()) {
-            case "SetOneState" -> {
+        String className = this.getClass().getSimpleName();
+        SetNumber setNumber = SetNumber.getSetNumberByName(className);
+        switch (setNumber) {
+            case ONE -> {
                 score.setSet1Score(winner, score.getSet1Score(winner) + 1);
             }
-            case "SetTwoState" -> {
+            case TWO -> {
                 score.setSet2Score(winner, score.getSet2Score(winner) + 1);
             }
-            case "SetThreeState" -> {
+            case THREE -> {
                 score.setSet3Score(winner, score.getSet3Score(winner) + 1);
             }
         }
@@ -38,8 +44,9 @@ public abstract class MatchState {
 
 
     boolean isSetOver() {
-        return ((score.getSetScore(winner, this.getClass().getSimpleName()) > 5
-                && (score.getSetScore(winner, this.getClass().getSimpleName()) - score.getSetScore(loser, this.getClass().getSimpleName()) > 1)))
-                || score.getSetScore(winner, this.getClass().getSimpleName()) == 7;
+        String currentSet = this.getClass().getSimpleName();
+        return ((score.getSetScore(winner, currentSet) == MIN_SCORE_TO_WIN
+                && (score.getSetScore(winner, currentSet) - score.getSetScore(loser, currentSet) >= MIN_SCORE_DIFF_TO_WIN)))
+                || score.getSetScore(winner, currentSet) > MIN_SCORE_TO_WIN;
     }
 }
