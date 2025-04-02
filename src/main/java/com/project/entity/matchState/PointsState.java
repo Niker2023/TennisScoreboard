@@ -8,8 +8,8 @@ public abstract class PointsState {
 
     public PointsState(MatchState matchState) {
         this.matchState = matchState;
-        matchState.score.setPoints(Player.ONE.toString(),0);
-        matchState.score.setPoints(Player.TWO.toString(),0);
+        matchState.score.setPoints(Player.ONE.getName(),0);
+        matchState.score.setPoints(Player.TWO.getName(),0);
     }
 
 
@@ -19,4 +19,7 @@ public abstract class PointsState {
     void increasePoints() {
         matchState.score.setPoints(matchState.winner, matchState.score.getPoints(matchState.winner) + 1);
     }
+
+
+    abstract String getPointsView(String playerOrder);
 }
