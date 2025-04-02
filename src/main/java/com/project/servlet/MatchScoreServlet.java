@@ -21,13 +21,13 @@ public class MatchScoreServlet extends HttpServlet {
 
     private OngoingMatchesService ongoingMatchesService;
     private MatchScoreViewUtil matchScoreViewUtil;
-    private MatchScoreCalculationService matchScoreCalculationService;
+//    private MatchScoreCalculationService matchScoreCalculationService;
 
     @Override
     public void init() {
         ongoingMatchesService = new OngoingMatchesService();
         matchScoreViewUtil = new MatchScoreViewUtil();
-        matchScoreCalculationService = new MatchScoreCalculationService();
+//        matchScoreCalculationService = new MatchScoreCalculationService();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,7 +46,7 @@ public class MatchScoreServlet extends HttpServlet {
         String winner = request.getParameter("winner");
         var currentMatch = ongoingMatchesService.getMatch(currentUuid);
 
-        matchScoreCalculationService.changeMatchScore(currentMatch, winner);
+//        matchScoreCalculationService.changeMatchScore(currentMatch, winner);
         HttpServletRequest filledRequest = matchScoreViewUtil.getFilledRequest(request, currentMatch);
 
         filledRequest.setAttribute("uuid", currentUuid);
