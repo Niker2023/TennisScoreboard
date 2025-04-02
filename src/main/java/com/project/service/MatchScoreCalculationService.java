@@ -13,10 +13,10 @@ public class MatchScoreCalculationService {
     public void changeMatchScore(MatchScore matchScore, String winningPlayer) {
 
         winner = winningPlayer;
-        if (winningPlayer.equals(Player.ONE.toString())) {
-            loser = Player.TWO.toString();
+        if (winningPlayer.equals(Player.ONE.getName())) {
+            loser = Player.TWO.getName();
         } else {
-            loser = Player.ONE.toString();
+            loser = Player.ONE.getName();
         }
 
         if (isTiebreak(matchScore)) {
@@ -56,7 +56,7 @@ public class MatchScoreCalculationService {
         }
 
         if (isTheEndOfTheMatch(matchScore)) {
-            if (winner.equals(Player.ONE.toString())) {
+            if (winner.equals(Player.ONE.getName())) {
                 matchScore.setTheWinnerOfTheMatch(matchScore.getPlayer1Id());
             } else {
                 matchScore.setTheWinnerOfTheMatch(matchScore.getPlayer2Id());
