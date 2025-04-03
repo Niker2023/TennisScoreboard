@@ -3,10 +3,7 @@ package com.project.entity.matchState;
 import com.project.dto.PlayerDto;
 import com.project.util.Player;
 import com.project.util.SetNumber;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Setter;
+import lombok.*;
 
 @Data
 @Setter(AccessLevel.PACKAGE)
@@ -15,19 +12,21 @@ public class Score {
     @EqualsAndHashCode.Exclude
     private MatchState matchState;
 
-    private int player1Points = 0;
-    private int player2Points = 0;
-    private int player1Set1Score = 0;
-    private int player2Set1Score = 0;
-    private int player1Set2Score = 0;
-    private int player2Set2Score = 0;
-    private int player1Set3Score = 0;
-    private int player2Set3Score = 0;
+    private int INIT_VALUE = 0;
+
+    private int player1Points = INIT_VALUE;
+    private int player2Points = INIT_VALUE;
+    private int player1Set1Score = INIT_VALUE;
+    private int player2Set1Score = INIT_VALUE;
+    private int player1Set2Score = INIT_VALUE;
+    private int player2Set2Score = INIT_VALUE;
+    private int player1Set3Score = INIT_VALUE;
+    private int player2Set3Score = INIT_VALUE;
     private final int Player1Id;
     private final int Player2Id;
     private final String Player1Name;
     private final String Player2Name;
-    private int winnerId;
+    private int winnerId = INIT_VALUE;
 
 
     public Score(PlayerDto player1, PlayerDto player2) {
@@ -41,15 +40,9 @@ public class Score {
 
     public void SetStatesForTests(int setSetNumber, boolean setTiebreak) {
         switch (setSetNumber) {
-            case 1 -> {
-                matchState = new SetOneState(this);
-            }
-            case 2 -> {
-                matchState = new SetTwoState(this);
-            }
-            case 3 -> {
-                matchState = new SetThreeState(this);
-            }
+            case 1 -> matchState = new SetOneState(this);
+            case 2 -> matchState = new SetTwoState(this);
+            case 3 -> matchState = new SetThreeState(this);
         }
         if (setTiebreak) {
             matchState.pointsState = new TiebreakState(matchState);
@@ -63,23 +56,14 @@ public class Score {
 
 
     public String getWinnerName() {
+        if (!isMatchOver()) {
+            return "Победителя еще нет.";
+        }
         if (winnerId == Player1Id) {
             return Player1Name;
         } else {
             return Player2Name;
         }
-    }
-
-
-    public void playerWinsPointById(int winnerId) {
-        if (winnerId == getPlayer1Id()) {
-            matchState.winner = Player.ONE.getName();
-            matchState.loser = Player.TWO.getName();
-        } else if (winnerId == getPlayer2Id()) {
-            matchState.winner = Player.TWO.getName();
-            matchState.loser = Player.ONE.getName();
-        }
-        matchState.changeScore();
     }
 
 
@@ -95,7 +79,7 @@ public class Score {
     }
 
 
-    public Integer getPoints(String player) {
+    Integer getPoints(String player) {
         if (player.equals(Player.ONE.getName())) {
             return player1Points;
         }
@@ -103,7 +87,7 @@ public class Score {
     }
 
 
-    public Integer getSet1Score(String player) {
+    Integer getSet1Score(String player) {
         if (player.equals(Player.ONE.getName())) {
             return player1Set1Score;
         }
@@ -132,7 +116,7 @@ public class Score {
     }
 
 
-    public Integer getSet2Score(String player) {
+    Integer getSet2Score(String player) {
         if (player.equals(Player.ONE.getName())) {
             return player1Set2Score;
         }
@@ -140,7 +124,7 @@ public class Score {
     }
 
 
-    public Integer getSet3Score(String player) {
+    Integer getSet3Score(String player) {
         if (player.equals(Player.ONE.getName())) {
             return player1Set3Score;
         }
@@ -194,6 +178,6 @@ public class Score {
 
 
     public boolean isMatchOver() {
-        return winnerId != 0;
+        return winnerId != INIT_VALUE;
     }
 }
