@@ -30,15 +30,9 @@ public abstract class MatchState {
         String className = this.getClass().getSimpleName();
         SetNumber setNumber = SetNumber.getSetNumberByName(className);
         switch (setNumber) {
-            case ONE -> {
-                score.setSet1Score(winner, score.getSet1Score(winner) + 1);
-            }
-            case TWO -> {
-                score.setSet2Score(winner, score.getSet2Score(winner) + 1);
-            }
-            case THREE -> {
-                score.setSet3Score(winner, score.getSet3Score(winner) + 1);
-            }
+            case ONE -> score.setSet1Score(winner, score.getSet1Score(winner) + 1);
+            case TWO -> score.setSet2Score(winner, score.getSet2Score(winner) + 1);
+            case THREE -> score.setSet3Score(winner, score.getSet3Score(winner) + 1);
         }
     }
 
