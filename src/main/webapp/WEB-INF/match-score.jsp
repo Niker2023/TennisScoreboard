@@ -38,7 +38,7 @@
       </div>
     </div>
   <c:choose>
-      <c:when test="${requestScope.winnerName eq '0'}">
+      <c:when test="${empty requestScope.winnerName}">
           <div>
               <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${requestScope.uuid}">
                   <button type="submit" name="winner" value="player1">Первый игрок выиграл очко</button>
