@@ -1,6 +1,5 @@
 package com.project.service;
 
-import com.project.entity.MatchScore;
 import com.project.entity.matchState.Score;
 
 import java.util.*;
