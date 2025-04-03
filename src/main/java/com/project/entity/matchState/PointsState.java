@@ -8,8 +8,8 @@ public abstract class PointsState {
 
     public PointsState(MatchState matchState) {
         this.matchState = matchState;
-        matchState.score.setPoints(Player.ONE.getName(),0);
-        matchState.score.setPoints(Player.TWO.getName(),0);
+        matchState.score.setPoints(Player.ONE.getName(),matchState.score.getINIT_VALUE());
+        matchState.score.setPoints(Player.TWO.getName(),matchState.score.getINIT_VALUE());
     }
 
 
