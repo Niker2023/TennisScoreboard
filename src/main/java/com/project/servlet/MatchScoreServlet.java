@@ -2,7 +2,6 @@ package com.project.servlet;
 
 import com.project.exception.DaoException;
 import com.project.service.FinishedMatchesPersistenceService;
-import com.project.service.MatchScoreCalculationService;
 import com.project.service.OngoingMatchesService;
 import com.project.util.MatchScoreViewUtil;
 import jakarta.servlet.ServletException;
@@ -21,13 +20,11 @@ public class MatchScoreServlet extends HttpServlet {
 
     private OngoingMatchesService ongoingMatchesService;
     private MatchScoreViewUtil matchScoreViewUtil;
-//    private MatchScoreCalculationService matchScoreCalculationService;
 
     @Override
     public void init() {
         ongoingMatchesService = new OngoingMatchesService();
         matchScoreViewUtil = new MatchScoreViewUtil();
-//        matchScoreCalculationService = new MatchScoreCalculationService();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,10 +40,11 @@ public class MatchScoreServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UUID currentUuid = UUID.fromString(request.getParameter("uuid"));
-        String winner = request.getParameter("winner");
+        String playerWinnerOrder = request.getParameter("winner");
         var currentMatch = ongoingMatchesService.getMatch(currentUuid);
 
-//        matchScoreCalculationService.changeMatchScore(currentMatch, winner);
+        currentMatch.playerWinsPointByPlayerOrder(playerWinnerOrder);
+
         HttpServletRequest filledRequest = matchScoreViewUtil.getFilledRequest(request, currentMatch);
 
         filledRequest.setAttribute("uuid", currentUuid);
