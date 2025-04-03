@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class NewMatchScoreCalculationServiceTest {
+class MatchScoreCalculationServiceTest {
 
     @Test
     void whenPlayer1WinsPoint_thenSuccess() {
