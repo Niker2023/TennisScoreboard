@@ -5,16 +5,16 @@ import com.project.dao.PlayerDao;
 import com.project.dto.FinishedMatchDto;
 import com.project.entity.Matches;
 import com.project.entity.matchState.Score;
+import com.project.mapper.MatchMapper;
 import com.project.util.ValidationUtil;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FinishedMatchesPersistenceService {
 
     private static final int NUMBER_OF_LINES_PER_PAGE = 5;
 
-    private final ValidationUtil validationUtil = new ValidationUtil();
     private final MatchDao matchDao = new MatchDao();
     private final PlayerDao playerDao = new PlayerDao();
 
@@ -29,13 +29,17 @@ public class FinishedMatchesPersistenceService {
         matchDao.save(match);
     }
 
+
     public List<FinishedMatchDto> getFinishedMatches(String currentPage) {
 
-        int currentPageNumber = validationUtil.checkPage(currentPage);
+        int currentPageNumber = ValidationUtil.checkPage(currentPage);
         var matches = matchDao.getMatches(currentPageNumber, NUMBER_OF_LINES_PER_PAGE);
 
-        return MatchesListToDtoList(matches);
+        return matches.stream()
+                .map(MatchMapper.INSTANCE::DtoFromMatch)
+                .collect(Collectors.toList());
     }
+
 
     public Long getNumberOfPages() {
 
@@ -44,52 +48,41 @@ public class FinishedMatchesPersistenceService {
         return (matchesCount + NUMBER_OF_LINES_PER_PAGE - 1) / NUMBER_OF_LINES_PER_PAGE;
     }
 
+
     public Long getNumberOfPagesByName(String playerName) {
 
+        ValidationUtil.checkName(playerName);
         var player = playerDao.getPlayerByName(playerName);
         var matchesCountByPlayer = matchDao.getMatchesCountByPlayer(player);
 
         return (matchesCountByPlayer + NUMBER_OF_LINES_PER_PAGE - 1) / NUMBER_OF_LINES_PER_PAGE;
     }
 
+
     public List<FinishedMatchDto> getFinishedMatchesByPlayerName(String playerName, String currentPage) {
 
-        int currentPageNumber = validationUtil.checkPage(currentPage);
+        ValidationUtil.checkName(playerName);
+        int currentPageNumber = ValidationUtil.checkPage(currentPage);
         var player = playerDao.getPlayerByName(playerName);
 
         var matches = matchDao.getMatchesByPlayer(player, currentPageNumber, NUMBER_OF_LINES_PER_PAGE);
 
-        return MatchesListToDtoList(matches);
+        return matches.stream()
+                .map(MatchMapper.INSTANCE::DtoFromMatch)
+                .collect(Collectors.toList());
     }
+
 
     public int getInitialDigitOfNumber(String currentPage) {
 
-        int currentPageNumber = validationUtil.checkPage(currentPage);
+        int currentPageNumber = ValidationUtil.checkPage(currentPage);
 
         return NUMBER_OF_LINES_PER_PAGE * (currentPageNumber - 1) + 1;
     }
 
+
     public int getCurrentPageNumber(String currentPage) {
 
-        return validationUtil.checkPage(currentPage);
-    }
-
-    private List<FinishedMatchDto> MatchesListToDtoList(List<Matches> matchesList) {
-
-        List<FinishedMatchDto> finishedMatches = new ArrayList<>();
-
-        for (Matches match : matchesList) {
-            finishedMatches.add(toDto(match));
-        }
-        return finishedMatches;
-    }
-
-    private FinishedMatchDto toDto(Matches match) {
-
-        String player1Name = match.getPlayer1().getName();
-        String player2Name = match.getPlayer2().getName();
-        String winnerName = match.getWinner().getName();
-
-        return new FinishedMatchDto(player1Name, player2Name, winnerName);
+        return ValidationUtil.checkPage(currentPage);
     }
 }
