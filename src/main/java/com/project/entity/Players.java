@@ -13,7 +13,7 @@ public class Players {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true, length = 50, nullable = false)
+    @Column(unique = true, length = 20, nullable = false)
     private String name;
 
     public Players(String player) {
