@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class ValidationUtil {
 
-    public void checkName(String playerName) {
+    public static void checkName(String playerName) {
 
         Pattern patternName = Pattern.compile("^[A-Za-zА-Яа-яЁё\\s-.]+$");
 
@@ -18,7 +18,7 @@ public class ValidationUtil {
         }
     }
 
-    public int checkPage(String currentPage) {
+    public static int checkPage(String currentPage) {
 
         int currentPageNumber;
 
