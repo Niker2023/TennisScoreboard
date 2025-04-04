@@ -22,19 +22,18 @@ public class Score {
     private int player2Set2Score = INIT_VALUE;
     private int player1Set3Score = INIT_VALUE;
     private int player2Set3Score = INIT_VALUE;
-    private final int Player1Id;
-    private final int Player2Id;
-    private final String Player1Name;
-    private final String Player2Name;
+    private final int player1Id;
+    private final int player2Id;
+    private final String player1Name;
+    private final String player2Name;
     private int winnerId = INIT_VALUE;
-
 
     public Score(PlayerDto player1, PlayerDto player2) {
         matchState = new SetOneState(this);
-        Player1Id = player1.id();
-        Player2Id = player2.id();
-        Player1Name = player1.playerName();
-        Player2Name = player2.playerName();
+        player1Id = player1.id();
+        player2Id = player2.id();
+        player1Name = player1.playerName();
+        player2Name = player2.playerName();
     }
 
 
@@ -59,10 +58,10 @@ public class Score {
         if (!isMatchOver()) {
             return "Победителя еще нет.";
         }
-        if (winnerId == Player1Id) {
-            return Player1Name;
+        if (winnerId == player1Id) {
+            return player1Name;
         } else {
-            return Player2Name;
+            return player2Name;
         }
     }
 
@@ -170,9 +169,9 @@ public class Score {
 
     public void setWinnerId(String playerOrder) {
         if (playerOrder.equals(Player.ONE.getName())) {
-            winnerId = Player1Id;
+            winnerId = player1Id;
         } else {
-            winnerId = Player2Id;
+            winnerId = player2Id;
         }
     }
 
