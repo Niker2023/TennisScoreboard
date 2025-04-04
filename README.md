@@ -59,7 +59,7 @@ Tennis Match Simulator
 
 ## Установка и запуск
    
-- git clone git clone https://github.com/Niker2023/TennisScoreboard
+- git clone https://github.com/Niker2023/TennisScoreboard
 - docker build -t app .
 - docker run -p8080:8080 app
 
