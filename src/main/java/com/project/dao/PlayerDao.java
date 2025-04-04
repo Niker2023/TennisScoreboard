@@ -2,6 +2,7 @@ package com.project.dao;
 
 import com.project.entity.Players;
 import com.project.exception.DaoException;
+import com.project.exception.PlayerNotFoundException;
 import com.project.util.HibernateUtil;
 import jakarta.persistence.PersistenceException;
 import lombok.NoArgsConstructor;
@@ -43,7 +44,7 @@ public class PlayerDao {
                 transaction.rollback();
             }
             log.error("getPlayerById error: {}", e.getMessage());
-            throw new DaoException("Can`t get player : " + id + ".");
+            throw new PlayerNotFoundException("Не найдено игрока с данным ID: " + id);
         }
         return player;
     }
@@ -62,7 +63,7 @@ public class PlayerDao {
                 transaction.rollback();
             }
             log.error("getPlayerByName error: {}", e.getMessage());
-            throw new DaoException("Can`t get player : " + name + ".");
+            throw new PlayerNotFoundException("Не найдено игрока с данным именем: " + name);
         }
         return player;
     }
