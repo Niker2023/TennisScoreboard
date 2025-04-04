@@ -19,19 +19,17 @@ import java.util.UUID;
 public class MatchScoreServlet extends HttpServlet {
 
     private OngoingMatchesService ongoingMatchesService;
-    private MatchScoreViewUtil matchScoreViewUtil;
 
     @Override
     public void init() {
         ongoingMatchesService = new OngoingMatchesService();
-        matchScoreViewUtil = new MatchScoreViewUtil();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UUID currentUuid = UUID.fromString(request.getParameter("uuid"));
 
         var currentMatch = ongoingMatchesService.getMatch(currentUuid);
-        HttpServletRequest filledRequest = matchScoreViewUtil.getFilledRequest(request, currentMatch);
+        HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
 
         filledRequest.setAttribute("uuid", currentUuid);
         request.getRequestDispatcher("/WEB-INF/match-score.jsp")
@@ -45,7 +43,7 @@ public class MatchScoreServlet extends HttpServlet {
 
         currentMatch.playerWinsPointByPlayerOrder(playerWinnerOrder);
 
-        HttpServletRequest filledRequest = matchScoreViewUtil.getFilledRequest(request, currentMatch);
+        HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
 
         filledRequest.setAttribute("uuid", currentUuid);
         request.getRequestDispatcher("/WEB-INF/match-score.jsp")
