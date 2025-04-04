@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class MatchScoreViewUtil {
 
-    public HttpServletRequest getFilledRequest (HttpServletRequest req, Score match) {
+    public static HttpServletRequest getFilledRequest (HttpServletRequest req, Score match) {
         req.setAttribute(Player.ONE.getName(), "%s".formatted(match.getPlayer1Name()));
         req.setAttribute(Player.TWO.getName(), "%s".formatted(match.getPlayer2Name()));
 
