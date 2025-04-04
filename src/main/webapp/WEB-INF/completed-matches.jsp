@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <title>Страница завершенных матчей</title>
     <link rel ="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/completed-matches.css">
 </head>
@@ -30,7 +30,7 @@
     <div class="tableau">
         <c:choose>
             <c:when test="${requestScope.error}">
-                <p class="error">"${requestScope.errorMessage}"</p>
+                <p class="error">${requestScope.errorMessage}</p>
             </c:when>
             <c:when test="${empty requestScope.matches}">
                 <p>Еще не сыграно ни одного матча.</p>

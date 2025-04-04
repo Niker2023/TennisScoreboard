@@ -2,7 +2,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <html>
  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Создание нового матча</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/new-match.css">

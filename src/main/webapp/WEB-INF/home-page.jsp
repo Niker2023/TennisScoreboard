@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=0.75">
+  <meta name="viewport" content="width=device-width, initial-scale=0.8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Бу! Не бойся. Давай сыграем!</title>
   <link rel ="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home-page.css">
