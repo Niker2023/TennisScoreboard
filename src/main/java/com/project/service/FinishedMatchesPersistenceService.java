@@ -4,7 +4,7 @@ import com.project.dao.MatchDao;
 import com.project.dao.PlayerDao;
 import com.project.dto.FinishedMatchDto;
 import com.project.entity.Matches;
-import com.project.entity.matchState.Score;
+import com.project.entity.match_state.Score;
 import com.project.mapper.MatchMapper;
 import com.project.util.ValidationUtil;
 

@@ -1,7 +1,7 @@
 package com.project.service;
 
 import com.project.dto.PlayerDto;
-import com.project.entity.matchState.Score;
+import com.project.entity.match_state.Score;
 import com.project.util.Player;
 import org.junit.jupiter.api.Test;
 

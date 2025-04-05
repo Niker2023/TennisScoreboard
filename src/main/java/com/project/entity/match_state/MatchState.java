@@ -1,4 +1,4 @@
-package com.project.entity.matchState;
+package com.project.entity.match_state;
 
 import com.project.util.SetNumber;
 import lombok.Getter;

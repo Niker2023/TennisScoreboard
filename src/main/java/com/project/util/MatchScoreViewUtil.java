@@ -1,6 +1,6 @@
 package com.project.util;
 
-import com.project.entity.matchState.Score;
+import com.project.entity.match_state.Score;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class MatchScoreViewUtil {

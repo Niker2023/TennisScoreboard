@@ -1,4 +1,4 @@
-package com.project.entity.matchState;
+package com.project.entity.match_state;
 
 public class SetOneState extends MatchState {
 

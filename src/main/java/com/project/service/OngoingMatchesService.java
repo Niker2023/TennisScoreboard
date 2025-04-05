@@ -1,6 +1,6 @@
 package com.project.service;
 
-import com.project.entity.matchState.Score;
+import com.project.entity.match_state.Score;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

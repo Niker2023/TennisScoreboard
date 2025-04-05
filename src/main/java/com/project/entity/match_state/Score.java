@@ -1,4 +1,4 @@
-package com.project.entity.matchState;
+package com.project.entity.match_state;
 
 import com.project.dto.PlayerDto;
 import com.project.util.Player;
