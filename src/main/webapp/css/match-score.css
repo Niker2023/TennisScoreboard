@@ -42,6 +42,11 @@ button {
     flex-direction: column;
 }
 
+.error {
+    color: #fb0000;
+    padding-bottom: 20px;
+}
+
 img {
     display: block;
     margin-left: auto;
