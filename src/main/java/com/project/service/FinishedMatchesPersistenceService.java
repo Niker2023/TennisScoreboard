@@ -32,7 +32,7 @@ public class FinishedMatchesPersistenceService {
 
     public List<FinishedMatchDto> getFinishedMatches(String currentPage) {
 
-        int currentPageNumber = ValidationUtil.checkPage(currentPage);
+        int currentPageNumber = ValidationUtil.checkPage(currentPage, NUMBER_OF_LINES_PER_PAGE);
         var matches = matchDao.getMatches(currentPageNumber, NUMBER_OF_LINES_PER_PAGE);
 
         return matches.stream()
@@ -62,7 +62,7 @@ public class FinishedMatchesPersistenceService {
     public List<FinishedMatchDto> getFinishedMatchesByPlayerName(String playerName, String currentPage) {
 
         ValidationUtil.checkName(playerName);
-        int currentPageNumber = ValidationUtil.checkPage(currentPage);
+        int currentPageNumber = ValidationUtil.checkPage(currentPage, NUMBER_OF_LINES_PER_PAGE);
         var player = playerDao.getPlayerByName(playerName);
 
         var matches = matchDao.getMatchesByPlayer(player, currentPageNumber, NUMBER_OF_LINES_PER_PAGE);
@@ -75,7 +75,7 @@ public class FinishedMatchesPersistenceService {
 
     public int getInitialDigitOfNumber(String currentPage) {
 
-        int currentPageNumber = ValidationUtil.checkPage(currentPage);
+        int currentPageNumber = ValidationUtil.checkPage(currentPage, NUMBER_OF_LINES_PER_PAGE);
 
         return NUMBER_OF_LINES_PER_PAGE * (currentPageNumber - 1) + 1;
     }
@@ -83,6 +83,6 @@ public class FinishedMatchesPersistenceService {
 
     public int getCurrentPageNumber(String currentPage) {
 
-        return ValidationUtil.checkPage(currentPage);
+        return ValidationUtil.checkPage(currentPage, NUMBER_OF_LINES_PER_PAGE);
     }
 }
