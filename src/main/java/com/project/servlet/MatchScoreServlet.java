@@ -1,9 +1,9 @@
 package com.project.servlet;
 
-import com.project.exception.DaoException;
 import com.project.service.FinishedMatchesPersistenceService;
 import com.project.service.OngoingMatchesService;
 import com.project.util.MatchScoreViewUtil;
+import com.project.util.ValidationUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -26,37 +26,59 @@ public class MatchScoreServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UUID currentUuid = UUID.fromString(request.getParameter("uuid"));
 
-        var currentMatch = ongoingMatchesService.getMatch(currentUuid);
-        HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
+        HttpServletRequest filledRequest;
 
-        filledRequest.setAttribute("uuid", currentUuid);
+        try {
+            ValidationUtil.checkUUID(request.getParameter("uuid"));
+
+            UUID currentUuid = UUID.fromString(request.getParameter("uuid"));
+
+            var currentMatch = ongoingMatchesService.getMatch(currentUuid);
+            filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
+
+            filledRequest.setAttribute("uuid", currentUuid);
+        } catch (Exception e) {
+            filledRequest = request;
+
+            request.setAttribute("error", true);
+            request.setAttribute("errorMessage", e.getMessage());
+        }
+
         request.getRequestDispatcher("/WEB-INF/match-score.jsp")
                 .forward(filledRequest, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UUID currentUuid = UUID.fromString(request.getParameter("uuid"));
-        String playerWinnerOrder = request.getParameter("winner");
-        var currentMatch = ongoingMatchesService.getMatch(currentUuid);
 
-        currentMatch.playerWinsPointByPlayerOrder(playerWinnerOrder);
+        HttpServletRequest filledRequest;
 
-        HttpServletRequest filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
+        try {
+            ValidationUtil.checkUUID(request.getParameter("uuid"));
 
-        filledRequest.setAttribute("uuid", currentUuid);
+            var currentUuid = UUID.fromString(request.getParameter("uuid"));
+            String playerWinnerOrder = request.getParameter("winner");
+            var currentMatch = ongoingMatchesService.getMatch(currentUuid);
+
+            currentMatch.playerWinsPointByPlayerOrder(playerWinnerOrder);
+
+            filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
+            filledRequest.setAttribute("uuid", currentUuid);
+
+            if (currentMatch.isMatchOver()) {
+                var finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
+
+                finishedMatchesPersistenceService.save(currentMatch);
+                ongoingMatchesService.removeMatch(currentUuid);
+            }
+        } catch (Exception e) {
+            filledRequest = request;
+
+            request.setAttribute("error", true);
+            request.setAttribute("errorMessage", e.getMessage());
+        }
+
         request.getRequestDispatcher("/WEB-INF/match-score.jsp")
                 .forward(filledRequest, response);
-
-        if (currentMatch.isMatchOver()) {
-            try {
-                var finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
-                finishedMatchesPersistenceService.save(currentMatch);
-            } catch (DaoException e) {
-                log.error(e.getMessage(), e);
-            }
-            ongoingMatchesService.removeMatch(currentUuid);
-        }
     }
 }
