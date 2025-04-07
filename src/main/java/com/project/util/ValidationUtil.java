@@ -6,7 +6,11 @@ import java.util.regex.Pattern;
 
 public class ValidationUtil {
 
-    public static void checkName(String playerName) {
+    public static boolean isName(String playerName) {
+
+        if (playerName == null || playerName.isEmpty()) {
+            return false;
+        }
 
         Pattern patternName = Pattern.compile("^[A-Za-zА-Яа-яЁё\\s-.]+$");
 
@@ -16,9 +20,10 @@ public class ValidationUtil {
                                     Допустимы для ввода: буквы, пробел, точка, дефис.<br>
                                     Максимальное длина имени 20 символов.""");
         }
+        return true;
     }
 
-    public static int checkPage(String currentPage, int maxPage) {
+    public static int getPageNumber(String currentPage, int maxPage) {
 
         int currentPageNumber;
 
