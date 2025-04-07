@@ -79,7 +79,7 @@ public class MatchDao {
         return matchesList;
     }
 
-    public Long getMatchesCount() {
+    public int getMatchesCount() {
         Transaction tx = null;
         Long count = 0L;
 
@@ -95,10 +95,10 @@ public class MatchDao {
             }
             log.error("getMatchesCount : {}", e.getMessage());
         }
-        return count;
+        return Math.toIntExact(count);
     }
 
-    public Long getMatchesCountByPlayer(Players player) {
+    public int getMatchesCountByPlayer(Players player) {
         Transaction tx = null;
         Long count = 0L;
 
@@ -115,6 +115,6 @@ public class MatchDao {
             log.error("getMatchesCountByPlayer : {}", e.getMessage());
         }
 
-        return count;
+        return Math.toIntExact(count);
     }
 }
