@@ -96,3 +96,6 @@ src/
 ![ts_finishedMathces](https://github.com/user-attachments/assets/c4a6eaca-4da4-43f1-9415-191b9f049ad4)
 
 </details>
+
+Проект выполнен в соответствии с техническим заданием: <br>
+https://zhukovsd.github.io/java-backend-learning-course/Projects/TennisScoreboard/
