@@ -52,4 +52,15 @@ public class ValidationUtil {
             throw new ValidationException("UUID<br>" + uuid + "<br>введен некорректно!");
         }
     }
+
+
+    public static void namesValidation(String player1, String player2) {
+
+        ValidationUtil.isName(player1);
+        ValidationUtil.isName(player2);
+
+        if (player1.equals(player2)) {
+            throw new ValidationException("Имена игроков одинаковы!");
+        }
+    }
 }
