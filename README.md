@@ -98,4 +98,4 @@ src/
 </details>
 
 Проект выполнен в соответствии с техническим заданием: <br>
-https://zhukovsd.github.io/java-backend-learning-course/Projects/TennisScoreboard/
+https://zhukovsd.github.io/java-backend-learning-course/projects/tennis-scoreboard/
