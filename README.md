@@ -85,10 +85,14 @@ src/
 │       └── images/              # Изображения
 └── test/                        # Тесты
 </pre>
+
 ## Скриншоты
+<details>
+<summary>Развернуть</summary>
 
 ![ts_home](https://github.com/user-attachments/assets/c09e19b5-1f7e-4e42-900a-1105b9656096)
 ![ts_newMatch](https://github.com/user-attachments/assets/fac69331-bbf6-4c54-8557-8b0169565953)
 ![ts_ongoingMatch](https://github.com/user-attachments/assets/77ad1a89-cc26-4550-b92e-8014cdd49e6a)
 ![ts_finishedMathces](https://github.com/user-attachments/assets/c4a6eaca-4da4-43f1-9415-191b9f049ad4)
 
+</details>
