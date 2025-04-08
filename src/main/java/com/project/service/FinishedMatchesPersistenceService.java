@@ -59,7 +59,7 @@ public class FinishedMatchesPersistenceService {
     private MatchesToDisplayDto getFinishedMatchesByPlayerName(String playerName, String currentPage) {
 
         int totalPages = getNumberOfPagesByName(playerName);
-        int currentPageNumber = ValidationUtil.getPageNumber(currentPage, totalPages);
+        int currentPageNumber = ValidationUtil.getCorrectPageNumber(currentPage, totalPages);
 
         var player = playerDao.getPlayerByName(playerName);
 
@@ -76,7 +76,7 @@ public class FinishedMatchesPersistenceService {
     private MatchesToDisplayDto getAllFinishedMatches(String currentPage) {
 
         int totalPages = getNumberOfPages();
-        int currentPageNumber = ValidationUtil.getPageNumber(currentPage, totalPages);
+        int currentPageNumber = ValidationUtil.getCorrectPageNumber(currentPage, totalPages);
 
         var matches = matchDao.getMatches(currentPageNumber, NUMBER_OF_LINES_PER_PAGE);
 
