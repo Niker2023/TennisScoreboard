@@ -3,7 +3,6 @@ package com.project.servlet;
 import com.project.service.FinishedMatchesPersistenceService;
 import com.project.service.OngoingMatchesService;
 import com.project.util.MatchScoreViewUtil;
-import com.project.util.ValidationUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @Slf4j
 @WebServlet("/match-score")
@@ -30,14 +28,13 @@ public class MatchScoreServlet extends HttpServlet {
         HttpServletRequest filledRequest;
 
         try {
-            ValidationUtil.isUUID(request.getParameter("uuid"));
+            String uuid = request.getParameter("uuid");
 
-            UUID currentUuid = UUID.fromString(request.getParameter("uuid"));
+            var currentMatch = ongoingMatchesService.getMatch(uuid);
 
-            var currentMatch = ongoingMatchesService.getMatch(currentUuid);
             filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
 
-            filledRequest.setAttribute("uuid", currentUuid);
+            filledRequest.setAttribute("uuid", uuid);
         } catch (Exception e) {
             filledRequest = request;
 
@@ -54,22 +51,22 @@ public class MatchScoreServlet extends HttpServlet {
         HttpServletRequest filledRequest;
 
         try {
-            ValidationUtil.isUUID(request.getParameter("uuid"));
+            String uuid = request.getParameter("uuid");
 
-            var currentUuid = UUID.fromString(request.getParameter("uuid"));
             String playerWinnerOrder = request.getParameter("winner");
-            var currentMatch = ongoingMatchesService.getMatch(currentUuid);
+
+            var currentMatch = ongoingMatchesService.getMatch(uuid);
 
             currentMatch.playerWinsPointByPlayerOrder(playerWinnerOrder);
 
             filledRequest = MatchScoreViewUtil.getFilledRequest(request, currentMatch);
-            filledRequest.setAttribute("uuid", currentUuid);
+            filledRequest.setAttribute("uuid", uuid);
 
             if (currentMatch.isMatchOver()) {
                 var finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
 
                 finishedMatchesPersistenceService.save(currentMatch);
-                ongoingMatchesService.removeMatch(currentUuid);
+                ongoingMatchesService.removeMatch(uuid);
             }
         } catch (Exception e) {
             filledRequest = request;
