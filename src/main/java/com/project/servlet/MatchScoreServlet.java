@@ -30,7 +30,7 @@ public class MatchScoreServlet extends HttpServlet {
         HttpServletRequest filledRequest;
 
         try {
-            ValidationUtil.checkUUID(request.getParameter("uuid"));
+            ValidationUtil.isUUID(request.getParameter("uuid"));
 
             UUID currentUuid = UUID.fromString(request.getParameter("uuid"));
 
@@ -54,7 +54,7 @@ public class MatchScoreServlet extends HttpServlet {
         HttpServletRequest filledRequest;
 
         try {
-            ValidationUtil.checkUUID(request.getParameter("uuid"));
+            ValidationUtil.isUUID(request.getParameter("uuid"));
 
             var currentUuid = UUID.fromString(request.getParameter("uuid"));
             String playerWinnerOrder = request.getParameter("winner");
