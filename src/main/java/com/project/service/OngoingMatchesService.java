@@ -2,6 +2,7 @@ package com.project.service;
 
 import com.project.entity.match_state.Score;
 import com.project.exception.MatchNotFoundException;
+import com.project.util.ValidationUtil;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,14 +17,27 @@ public class OngoingMatchesService {
         return uuid;
     }
 
-    public Score getMatch(UUID uuid) {
-        if (matches.containsKey(uuid)) {
-            return matches.get(uuid);
+
+    public Score getMatch(String uuid) {
+
+        ValidationUtil.isUUID(uuid);
+
+        var currentUuid = getUuidFromString(uuid);
+        if (matches.containsKey(currentUuid)) {
+            return matches.get(currentUuid);
         }
-        throw new MatchNotFoundException("Матча с данныйм UUID " + uuid.toString() + " не существует или он уже доигран");
+        throw new MatchNotFoundException("Матча с данным UUID " + uuid + " не существует или он уже доигран");
     }
 
-    public void removeMatch(UUID uuid) {
-        matches.remove(uuid);
+
+    public void removeMatch(String uuid) {
+        var currentUuid = getUuidFromString(uuid);
+        matches.remove(currentUuid);
+    }
+
+
+    private UUID getUuidFromString(String uuid) {
+        ValidationUtil.isUUID(uuid);
+        return UUID.fromString(uuid);
     }
 }
