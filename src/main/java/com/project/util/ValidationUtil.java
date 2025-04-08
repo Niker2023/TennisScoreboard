@@ -23,7 +23,7 @@ public class ValidationUtil {
         return true;
     }
 
-    public static int getPageNumber(String currentPage, int maxPage) {
+    public static int getCorrectPageNumber(String currentPage, int maxPage) {
 
         int currentPageNumber;
 
@@ -43,7 +43,7 @@ public class ValidationUtil {
     }
 
 
-    public static void checkUUID(String uuid) {
+    public static void isUUID(String uuid) {
 
         Pattern UUID_REGEX =
                 Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
