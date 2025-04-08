@@ -95,6 +95,7 @@ public class MatchDao {
             }
             log.error("getMatchesCount : {}", e.getMessage());
         }
+
         return Math.toIntExact(count);
     }
 
