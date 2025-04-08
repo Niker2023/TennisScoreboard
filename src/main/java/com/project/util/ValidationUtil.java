@@ -54,10 +54,7 @@ public class ValidationUtil {
     }
 
 
-    public static void namesValidation(String player1, String player2) {
-
-        ValidationUtil.isName(player1);
-        ValidationUtil.isName(player2);
+    public static void namesComparing(String player1, String player2) {
 
         if (player1.equals(player2)) {
             throw new ValidationException("Имена игроков одинаковы!");
