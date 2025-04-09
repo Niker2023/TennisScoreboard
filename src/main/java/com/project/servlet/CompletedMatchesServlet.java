@@ -1,6 +1,6 @@
 package com.project.servlet;
 
-import com.project.service.FinishedMatchesPersistenceService;
+import com.project.service.FinishedMatchesPaginationService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,13 +14,13 @@ public class CompletedMatchesServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
+        FinishedMatchesPaginationService finishedMatchesPaginationService = new FinishedMatchesPaginationService();
 
         var filterByPlayerName = request.getParameter("playerName");
         var page = request.getParameter("page");
 
         try {
-            var finishedMatches = finishedMatchesPersistenceService.getFinishedMatches(filterByPlayerName, page);
+            var finishedMatches = finishedMatchesPaginationService.getFinishedMatches(filterByPlayerName, page);
 
             request.setAttribute("currentPage", finishedMatches.currentPage());
             request.setAttribute("totalPages", finishedMatches.totalPages());
