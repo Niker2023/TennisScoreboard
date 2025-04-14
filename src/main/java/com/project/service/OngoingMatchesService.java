@@ -26,7 +26,7 @@ public class OngoingMatchesService {
         if (matches.containsKey(currentUuid)) {
             return matches.get(currentUuid);
         }
-        throw new MatchNotFoundException("Матча с данным UUID " + uuid + " не существует или он уже доигран");
+        throw new MatchNotFoundException("Матча с данным UUID <br>" + uuid + "<br> не существует или он уже доигран");
     }
 
 
