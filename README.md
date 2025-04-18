@@ -59,7 +59,7 @@
 
 ## Установка и запуск
    
-- git clone https://github.com/Niker2023/TennisScoreboard
+- git clone https://github.com/Niker2023/TennisScoreboard && cd TennisScoreboard
 - docker build -t app .
 - docker run -p8080:8080 app
 
